@@ -1,4 +1,3 @@
-// app/components/ServicesStuff/ServicesPage.jsx
 import ServiceItem from './ServiceItem/ServiceItem';
 import services from '../../database/ServicesData';
 
@@ -13,30 +12,41 @@ const convertPriceToNumber = (price) => {
   return match ? parseInt(match[0], 10) : 0;
 };
 
-// Change the function signature to destructure searchParams with a default empty object
 export default async function ServicesPage({ searchParams = {} }) {
-  // Now safely access sort from searchParams
   const sortType = searchParams?.sort || '';
-  let sortedServices = [...services];
+  const searchTerm = searchParams?.search || '';
+
+  //filterin by title and description
+  let filteredServices = searchTerm
+    ? services.filter((service) => {
+        const searchWords = searchTerm.toLowerCase().split(' ');
+        const titleLower = service.title.toLowerCase();
+        const descLower = service.desc.toLowerCase();
+
+        return searchWords.every(
+          (word) => titleLower.includes(word) || descLower.includes(word)
+        );
+      })
+    : [...services];
 
   switch (sortType) {
     case 'price-high-to-low':
-      sortedServices.sort(
+      filteredServices.sort(
         (a, b) => convertPriceToNumber(b.price) - convertPriceToNumber(a.price)
       );
       break;
     case 'price-low-to-high':
-      sortedServices.sort(
+      filteredServices.sort(
         (a, b) => convertPriceToNumber(a.price) - convertPriceToNumber(b.price)
       );
       break;
     case 'tier-high-to-low':
-      sortedServices.sort(
+      filteredServices.sort(
         (a, b) => convertTierToNumber(b.tier) - convertTierToNumber(a.tier)
       );
       break;
     case 'tier-low-to-high':
-      sortedServices.sort(
+      filteredServices.sort(
         (a, b) => convertTierToNumber(a.tier) - convertTierToNumber(b.tier)
       );
       break;
@@ -46,23 +56,29 @@ export default async function ServicesPage({ searchParams = {} }) {
 
   return (
     <div className="services-list">
-      {sortedServices.map((service) => (
-        <ServiceItem
-          key={service.id}
-          img={service.img}
-          avatar={service.avatar}
-          category={service.category}
-          subCategory={service.subCategory}
-          title={service.title}
-          desc={service.desc}
-          tier={service.tier}
-          price={service.price}
-          name={service.name}
-          id={`${service.title.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()}-${
-            service.id
-          }`}
-        />
-      ))}
+      {filteredServices.length === 0 ? (
+        <div className="no-results">
+          No services found matching your search.
+        </div>
+      ) : (
+        filteredServices.map((service) => (
+          <ServiceItem
+            key={service.id}
+            img={service.img}
+            avatar={service.avatar}
+            category={service.category}
+            subCategory={service.subCategory}
+            title={service.title}
+            desc={service.desc}
+            tier={service.tier}
+            price={service.price}
+            name={service.name}
+            id={`${service.title
+              .replace(/[^a-zA-Z0-9]+/g, '-')
+              .toLowerCase()}-${service.id}`}
+          />
+        ))
+      )}
     </div>
   );
 }

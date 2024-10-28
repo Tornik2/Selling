@@ -5,6 +5,9 @@
   color: var(--text-color);
   padding-inline: 1.6rem;
 }
+.services-main {
+  flex: 1;
+}
 .services-main h1 span {
   color: var(--primary-color);
 }
@@ -91,6 +94,15 @@
   font-size: 1.6em;
   transition: all 1s;
   padding-right: 6px;
+}
+.services-main .no-results {
+  font-size: 2.4rem;
+  color: var(--text-color);
+  grid-column: 1 / -1; /* Start at column 1 and end at the last column */
+  grid-row: 1 / -1;
+  margin-top: 4.8rem;
+  margin-bottom: 4.8rem;
+  text-align: center;
 }
 @media only screen and (max-width: 1400px) {
   .services-list {
