@@ -21,9 +21,10 @@ export default function ServiceItem({
           <Image
             src={img}
             alt={title}
-            layout="fill"
-            objectFit="cover"
+            fill
+            priority
             className="service-image"
+            sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
         <div className="text-container">

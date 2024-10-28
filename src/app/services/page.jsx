@@ -1,6 +1,7 @@
 import './Services.css';
 import ServicesPage from '../components/ServicesStuff/ServicesPage';
 import Sorter from '../components/ServicesStuff/sorter';
+import SearchBar from '../components/ServicesStuff/searchBar';
 
 export default function Services({ searchParams }) {
   return (
@@ -8,7 +9,10 @@ export default function Services({ searchParams }) {
       <h1 className="service-title">
         <span>ServIt Up:</span> <br></br> Let Skills Meet Opportunities!
       </h1>
-      <Sorter />
+      <section id="filtering">
+        <SearchBar />
+        <Sorter />
+      </section>
       <ServicesPage searchParams={searchParams} />
     </main>
   );
