@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import services from '../../components/ServicesStuff/ServicesList/ServicesData';
+import services from '../../database/ServicesData';
 import './ServicePage.css';
 
 export default function ServicePage({ params }) {

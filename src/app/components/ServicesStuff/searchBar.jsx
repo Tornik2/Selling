@@ -1,6 +1,5 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useDebouncedCallback } from 'use-debounce';
