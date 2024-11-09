@@ -26,12 +26,12 @@ export default function Header() {
         </Link> */}
       </nav>
       <div className="registration-cont">
-        <Link href="/signup" className="Sign-up">
-          Sign up
-        </Link>
-        <Link href="/login" className="login">
-          Log in
-        </Link>
+        {/* Next linting rules might suggest using the Link component instead of an anchor tag. 
+        The Link component is meant to perform client-side transitions between pages. 
+        As the link points to an API route and not to a page, you should keep it as an anchor tag. */}
+        <a href="/api/auth/logout" className="logout">
+          Log out
+        </a>
       </div>
       <Hamburger />
     </header>
