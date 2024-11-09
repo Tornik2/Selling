@@ -14,11 +14,11 @@ footer a {
   color: var(--text-color);
 }
 footer a:hover {
-  color: var(--primary-color);
+  color: var(--hover-color);
   transition: 0.4s;
 }
 footer a:active {
-  color: var(--backround-color);
+  color: var(--active-color);
 }
 .footer-cont {
   display: flex;

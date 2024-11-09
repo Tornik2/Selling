@@ -2,6 +2,7 @@ import Link from 'next/link';
 import './Header.css';
 import Logo from '@/app/utils/logo';
 import Hamburger from '@/app/utils/hamburger';
+import ThemeToggle from './themeToggle';
 export default function Header() {
   return (
     <header>
@@ -32,6 +33,7 @@ export default function Header() {
         <a href="/api/auth/logout" className="logout">
           Log out
         </a>
+        <ThemeToggle />
       </div>
       <Hamburger />
     </header>

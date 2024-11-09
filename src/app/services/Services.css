@@ -66,6 +66,13 @@
   cursor: pointer;
   text-align: left;
   border-bottom: 1px solid var(--primary-color);
+  transition: 0.3s;
+}
+.services-main .sortOption:hover {
+  background-color: var(--hover-color);
+}
+.services-main .sortOption:active {
+  background-color: var(--active-color);
 }
 .services-main #searchForm {
   width: 300px;
@@ -74,7 +81,8 @@
   justify-content: space-between;
   gap: 1.6rem;
   transition: all 1s;
-  background: #fff;
+  background: var(--background-color);
+  /* #fff */
   border-radius: 25px;
   border: 3px solid var(--primary-color);
   padding: 8px;
@@ -87,6 +95,7 @@
   border-radius: 20px;
   padding-left: 12px;
   color: var(--text-color);
+  background: transparent;
 }
 .services-main #searchIcon {
   border-radius: 50%;

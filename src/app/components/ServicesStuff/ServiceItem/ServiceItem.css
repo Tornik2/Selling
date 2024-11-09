@@ -6,9 +6,7 @@
   /* border: 1px solid var(--accent); */
   color: var(--text-color);
   overflow: hidden;
-  box-shadow:
-    var(--accent) 0px 2px 3px,
-    var(--accent) 0px 2px 2px;
+  box-shadow: var(--accent) 0px 2px 3px, var(--accent) 0px 2px 2px;
 }
 .service-item a {
   color: inherit;
@@ -16,7 +14,7 @@
 }
 .service-item:hover {
   cursor: pointer;
-  background-color: #ededed;
+  background-color: var(--hover-color);
   transition: 0.4s;
 }
 .service-item .img-container {
@@ -50,14 +48,7 @@
 .service-item .text-container h6 .sub-category {
   transition: 0.4s;
 }
-.service-item .text-container h6 .category:hover,
-.service-item .text-container h6 .sub-category:hover {
-  color: var(--primary-color);
-}
-.service-item .text-container h6 .category:active,
-.service-item .text-container h6 .sub-category:active {
-  color: var(--text-color);
-}
+
 .service-item .text-container h2 {
   color: var(--primary-color);
   font-size: 1.8rem;
@@ -67,7 +58,13 @@
   transition: 0.4s;
 }
 .service-item .text-container h2:hover {
-  color: var(--secondary-accent);
+  color: #c491ff;
+}
+[data-theme='dark'] .service-item .text-container h2:hover {
+  color: var(--text-color);
+}
+[data-theme='dark'] .service-item .text-container h2:active {
+  color: var(--accent);
 }
 .service-item .text-container h2:active {
   color: var(--text-color);
