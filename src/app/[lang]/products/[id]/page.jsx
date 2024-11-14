@@ -1,9 +1,9 @@
 import styles from './productPage.css';
-import ImageSlider from '@/app/utils/imageSlider';
+import ImageSlider from '../../utils/imageSlider';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
-import QuantitySelector from '@/app/utils/quantitySelector';
+import QuantitySelector from '../../utils/quantitySelector';
 
 const fetchProduct = async (id) => {
   const res = await fetch(`https://dummyjson.com/products/${id}`);

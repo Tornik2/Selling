@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function ServiceItem({
+  lang,
   id,
   img,
   category,
@@ -16,7 +17,8 @@ export default function ServiceItem({
 }) {
   return (
     <div className="service-item">
-      <Link href={`/services/${id}`}>
+      <Link href={`/${lang}/services/${id}`}>
+        {' '}
         <div className="img-container">
           <Image
             src={img}

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function Sorter() {
+export default function Sorter({ dictionary }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
@@ -10,25 +10,22 @@ export default function Sorter() {
   // Get current sort from URL or default to 'Sort Options'
   const currentSort = searchParams.get('sort') || 'Sort Options';
 
-  const options = [
-    'Price High to Low',
-    'Price Low to High',
-    'Tier High to Low',
-    'Tier Low to High',
-  ];
+  const sortOptions = {
+    'price-high-to-low': dictionary.sorter.prhigh,
+    'price-low-to-high': dictionary.sorter.prlow,
+    'tier-high-to-low': dictionary.sorter.trhigh,
+    'tier-low-to-high': dictionary.sorter.trlow,
+  };
 
   const handleSortChange = (option) => {
     setIsOpen(false);
+    const sortParam = option;
 
-    // Convert option to URL-friendly format
-    const sortParam = option.toLowerCase().replace(/ /g, '-');
-
-    // Update URL with new sort parameter
     const params = new URLSearchParams(searchParams);
     params.set('sort', sortParam);
 
-    // scroll option might change in future, when pagination is added
-    router.push(`/services?${params.toString()}`, {
+    // Update URL with the sort parameter (no need to encode manually)
+    router.push(`${window.location.pathname}?${params.toString()}`, {
       scroll: false,
     });
   };
@@ -36,18 +33,16 @@ export default function Sorter() {
   return (
     <div className="sorter">
       <button onClick={() => setIsOpen(!isOpen)} className="SortButton">
-        {options.find(
-          (opt) => opt.toLowerCase().replace(/ /g, '-') === currentSort
-        ) || 'Sort Options'}
+        {sortOptions[currentSort] || dictionary.sorter.options}
         {isOpen && (
           <div className="sortMenu">
-            {options.map((option) => (
+            {Object.keys(sortOptions).map((option) => (
               <div
                 key={option}
                 className="sortOption"
                 onClick={() => handleSortChange(option)}
               >
-                {option}
+                {sortOptions[option]}
               </div>
             ))}
           </div>

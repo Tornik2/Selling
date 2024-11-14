@@ -11,8 +11,12 @@ const convertPriceToNumber = (price) => {
   const match = price.match(/\d+/);
   return match ? parseInt(match[0], 10) : 0;
 };
-
-export default async function ServicesPage({ searchParams = {} }) {
+``;
+export default async function ServicesPage({
+  searchParams = {},
+  dictionary,
+  lang,
+}) {
   const sortType = searchParams?.sort || '';
   const searchTerm = searchParams?.search || '';
 
@@ -57,13 +61,12 @@ export default async function ServicesPage({ searchParams = {} }) {
   return (
     <div className="services-list">
       {filteredServices.length === 0 ? (
-        <div className="no-results">
-          No services found matching your search.
-        </div>
+        <div className="no-results">{dictionary.servicesPage.notFound}</div>
       ) : (
         filteredServices.map((service) => (
           <ServiceItem
             key={service.id}
+            lang={lang}
             img={service.img}
             avatar={service.avatar}
             category={service.category}

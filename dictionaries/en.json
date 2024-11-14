@@ -1,0 +1,45 @@
+{
+  "home": {
+    "title": "ServIt",
+    "desc": "Service Marketplace",
+    "omw": "Coming Soon"
+  },
+  "about": {
+    "title": "ServIt is a service marketplace",
+    "desc": "designed for both service providers and seekers. Whether you need a skilled handyman, a talented graphic designer, or someone to help with everyday tasks, ServIt is here to bridge the gap. Users can easily post services they offer or tasks they need assistance with."
+  },
+  "footer": {
+    "aboutLink": "About Us",
+    "contactLink": "Contact",
+    "policies": "Policies",
+    "rights": "© 2024 ServIt. All rights reserved."
+  },
+  "header": {
+    "aboutLink": "About Us",
+    "tasks": "Tasks",
+    "services": "Services",
+    "home": "Home",
+    "logout": "Log out"
+  },
+  "sorter": {
+    "options": "Sort Options",
+    "prhigh": "Price High to Low",
+    "prlow": "Price Low to High",
+    "trhigh": "Tier High to Low",
+    "trlow": "Tier Low to High"
+  },
+  "servicesPage": {
+    "notFound": "No services found matching your search."
+  },
+  "serviceID": {
+    "contacts": "Contacts:",
+    "msg": "Send a Message"
+  },
+  "services": {
+    "span": "ServIt Up:",
+    "nospan": "Let Skills Meet Opportunities!"
+  },
+  "language": {
+    "lang": "ქარ"
+  }
+}

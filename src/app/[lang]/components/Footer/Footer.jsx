@@ -1,20 +1,20 @@
 import './Footer.css';
 import Link from 'next/link';
-export default function Footer() {
+export default function Footer({ lang, dictionary }) {
   return (
     <footer>
       <div className="footer-cont">
         <Link href="/about" className="about">
-          About Us
+          {dictionary.footer.aboutLink}
         </Link>
         <Link href="_blank" className="Contact">
-          Contact
+          {dictionary.footer.contactLink}
         </Link>
         <Link href="_blank" className="Policy">
-          Policies
+          {dictionary.footer.policies}
         </Link>
       </div>
-      <div className="rights">© 2024 ServIt. All rights reserved.</div>
+      <div className="rights"> {dictionary.footer.rights}</div>
     </footer>
   );
 }

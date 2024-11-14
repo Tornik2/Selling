@@ -4,14 +4,14 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
-export default function ThemeToggle() {
+export default function ThemeToggle(lang) {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
-  }, []);
+  }, [lang]);
 
   if (!mounted) {
     return null;

@@ -2,8 +2,11 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import services from '../../database/ServicesData';
 import './ServicePage.css';
+import { getDictionary } from '../../../../../get-dictionaries'; // Import the server-side function
 
-export default function ServicePage({ params }) {
+export default async function ServicePage({ params }) {
+  const dictionary = await getDictionary(params.lang); // Fetch the dictionary dynamically
+
   const { id } = params;
 
   // Find the service that matches the id from the URL
@@ -35,9 +38,9 @@ export default function ServicePage({ params }) {
       </div>
       <p className="desc">{service.desc}</p>
       <div className="contacts">
-        <h6>Contacts:</h6>
+        <h6>{dictionary.serviceID.contacts}</h6>
         <p className="number">{service.Number}</p>
-        <button>Send a Message</button>
+        <button>{dictionary.serviceID.msg}</button>
       </div>
     </div>
   );
