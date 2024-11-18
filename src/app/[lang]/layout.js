@@ -9,7 +9,6 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import { getDictionary } from '../../../get-dictionaries';
 
 config.autoAddCss = false; // Prevents duplicate styles
-
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
@@ -21,6 +20,7 @@ export const metadata = {
 export default async function RootLayout({ children, params }) {
   const dictionary = await getDictionary(params.lang);
   return (
+    // data-theme="dark"
     <html lang={params.lang} suppressHydrationWarning>
       <body>
         <UserProvider>

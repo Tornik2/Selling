@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+[data-theme='light'] {
   --background-color: #f5f3f7;
   --primary-color: #8b5fbf;
   --accent: #c7aed8;
@@ -21,6 +21,7 @@
   --hover-color: #3d085d;
   --active-color: #000;
 }
+
 .logo-right,
 .logo-left {
   fill: var(--primary-color);
@@ -28,6 +29,7 @@
 .logo-mid {
   fill: #44bba4;
 }
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -55,13 +57,14 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
 }
+
 main {
   background-color: var(--background-color);
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: var(--background-color);
   font-family: 'Lexend', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -70,11 +73,11 @@ body {
   flex: 1;
   height: 100vh;
 }
-main,
+/* main,
 header,
 footer {
-  transition: 0.3s;
-}
+  transition: 1.3s ease-in-out;
+} */
 
 * {
   box-sizing: border-box;

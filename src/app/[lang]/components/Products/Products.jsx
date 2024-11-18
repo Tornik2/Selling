@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Pagination from '@/app/components/pagination/Pagination';
+// import Pagination from '@/app/components/pagination/Pagination';
 
 const fetchProducts = async (page) => {
   const limit = 10;
@@ -41,7 +41,7 @@ export default async function Products({ searchParams }) {
           </li>
         ))}
       </ul>
-      <Pagination currentPage={page} totalPages={totalPages} />
+      {/* <Pagination currentPage={page} totalPages={totalPages} /> */}
     </div>
   );
 }

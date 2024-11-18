@@ -4,15 +4,16 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
-export default function ThemeToggle(lang) {
+export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  // useEffect only runs on the client, so now we can safely show the UI
+  // Set initial theme based on localStorage or system theme
   useEffect(() => {
     setMounted(true);
-  }, [lang]);
+  }, []); // Runs once when component mounts
 
+  // Avoid rendering until the component is mounted
   if (!mounted) {
     return null;
   }
