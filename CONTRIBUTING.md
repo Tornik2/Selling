@@ -9,10 +9,21 @@ Welcome to the project! Please follow these rules to ensure smooth collaboration
 - Px usage is very little mostly for borders and border radius; other than that, use rems!
 - One rem is 10px, do not change its value!
 
-## Branching Strategy
+## Supabase data fetching
 
+- to fetch and render data from suapbase use hooks located in utils/supabaseUtils.ts
+- see example how to do it in app/[lang]/static
+
+## initial cloning
+
+- to start working on project contributors must clone dev branch( not the master one!)
+
+## github issues / Branching Strategy
+
+- each contributor will have their tasks inside github issues page
+- they should assing themselves to their tasks
 - github issues related branches are alreaady created and ready to use
-- Collaborator works on the task, pushes to the task branch.
+- they should change working branch into related brand and push commits there
 
 ## Commit Messages
 
