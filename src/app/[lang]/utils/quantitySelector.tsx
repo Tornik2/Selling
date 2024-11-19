@@ -2,12 +2,19 @@
 
 import { useState } from 'react';
 
-export default function QuantitySelector({ stock, minOrder }) {
+interface QuantitySelectorProps {
+  stock: number;
+  minOrder: number;
+}
+
+const QuantitySelector: React.FC<QuantitySelectorProps> = ({
+  stock,
+  minOrder,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [quantity, setQuantity] = useState(minOrder);
 
-  // Generate options from minOrder to stock
-  const options = [];
+  const options: number[] = [];
   for (let i = minOrder; i <= stock; i++) {
     options.push(i);
   }
@@ -37,4 +44,6 @@ export default function QuantitySelector({ stock, minOrder }) {
       )}
     </div>
   );
-}
+};
+
+export default QuantitySelector;

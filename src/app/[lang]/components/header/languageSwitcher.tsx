@@ -1,15 +1,19 @@
 'use client';
+import { FC } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { i18n } from '../../../../../i18n.config';
 
-export default function LocaleSwitcher() {
+interface LocaleSwitcherProps {
+  lang: string; // Explicitly define lang prop
+}
+
+const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ lang }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentLocale = pathname?.split('/')[1];
 
   // Function to update pathname with the new locale and retain search params
-  const redirectedPathname = (locale) => {
+  const redirectedPathname = (locale: string) => {
     if (!pathname) return '/';
 
     const segments = pathname.split('/');
@@ -23,9 +27,7 @@ export default function LocaleSwitcher() {
   };
 
   // Get the locale to switch to
-  const switchToLocale = i18n.locales.find(
-    (locale) => locale !== currentLocale
-  );
+  const switchToLocale = i18n.locales.find((locale) => locale !== lang);
 
   return (
     <div>
@@ -36,4 +38,6 @@ export default function LocaleSwitcher() {
       )}
     </div>
   );
-}
+};
+
+export default LocaleSwitcher;

@@ -1,6 +1,21 @@
 import './Footer.css';
 import Link from 'next/link';
-export default function Footer({ lang, dictionary }) {
+
+interface FooterDictionary {
+  footer: {
+    aboutLink: string;
+    contactLink: string;
+    policies: string;
+    rights: string;
+  };
+}
+
+interface FooterProps {
+  lang: string;
+  dictionary: FooterDictionary;
+}
+
+export default function Footer({ lang, dictionary }: FooterProps) {
   return (
     <footer>
       <div className="footer-cont">

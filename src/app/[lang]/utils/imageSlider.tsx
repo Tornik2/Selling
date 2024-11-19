@@ -1,9 +1,14 @@
 'use client';
 import { useState } from 'react';
-export default function ImageSlider({ images }) {
-  const [imageIndex, setImageIndex] = useState(0);
 
-  function ShowNextImg() {
+type ImageSliderProps = {
+  images: string[];
+};
+
+export default function ImageSlider({ images }: ImageSliderProps): JSX.Element {
+  const [imageIndex, setImageIndex] = useState<number>(0);
+
+  function ShowNextImg(): void {
     setImageIndex((index) => {
       if (index === images.length - 1) {
         return 0;
@@ -12,7 +17,8 @@ export default function ImageSlider({ images }) {
       }
     });
   }
-  function ShowPrevImg() {
+
+  function ShowPrevImg(): void {
     setImageIndex((index) => {
       if (index === 0) {
         return images.length - 1;
@@ -21,6 +27,7 @@ export default function ImageSlider({ images }) {
       }
     });
   }
+
   return (
     <div className="slider">
       <img src={images[imageIndex]} alt="product image" className="image" />

@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { ThemeProvider } from 'next-themes';
 import { i18n } from '../../../i18n.config';
@@ -9,18 +10,29 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import { getDictionary } from '../../../get-dictionaries';
 
 config.autoAddCss = false; // Prevents duplicate styles
+
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
+
 export const metadata = {
   title: 'ServIt',
   description: 'ServIt service marketplace',
 };
 
-export default async function RootLayout({ children, params }) {
+interface RootLayoutProps {
+  children: ReactNode;
+  params: {
+    lang: string;
+  };
+}
+
+export default async function RootLayout({
+  children,
+  params,
+}: RootLayoutProps) {
   const dictionary = await getDictionary(params.lang);
   return (
-    // data-theme="dark"
     <html lang={params.lang} suppressHydrationWarning>
       <body>
         <UserProvider>
