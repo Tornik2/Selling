@@ -4,10 +4,10 @@ import { notFound } from 'next/navigation';
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const posts = await getItemIds('posts');
+  const postIds = await getItemIds('posts');
 
   return (
-    posts?.map(({ id }) => ({
+    postIds?.map((id) => ({
       id: id.toString(),
     })) ?? []
   );
