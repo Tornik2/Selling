@@ -1,23 +1,21 @@
-import { getDictionary } from '../../../../get-dictionaries'; // Import the server-side function
+import { getDictionary } from '../../../../get-dictionaries';
 import About from '../components/About/About';
 
-interface AboutPageProps {
-  params: {
-    lang: string,
-  };
+interface AboutContent {
+  title: string;
+  desc: string;
 }
 
 interface Dictionary {
-  home: {
-    title: string,
-    desc: string,
-    omw: string,
-  };
+  about: AboutContent;
 }
 
-export default async function AboutPage({ params }: AboutPageProps) {
-  // Fetch the dictionary dynamically
+export default async function AboutPage({
+  params,
+}: {
+  params: { lang: string };
+}) {
   const dictionary: Dictionary = await getDictionary(params.lang);
 
-  return <About dictionary={dictionary} />; // Pass dictionary to the About component
+  return <About dictionary={dictionary} />;
 }
