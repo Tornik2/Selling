@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import './Header.css';
-import Logo from '@/app/[lang]/utils/logo';
-import Hamburger from '@/app/[lang]/utils/hamburger';
+import Logo from '../../utils/logo';
+import Hamburger from '../../utils/hamburger';
 import ThemeToggle from './themeToggle';
 import LocaleSwitcher from './languageSwitcher';
 export default function Header({ lang, dictionary }) {
