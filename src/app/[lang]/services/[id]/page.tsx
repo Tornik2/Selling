@@ -4,8 +4,17 @@ import services from '../../database/ServicesData';
 import './ServicePage.css';
 import { getDictionary } from '../../../../../get-dictionaries'; // Import the server-side function
 
-export default async function ServicePage({ params }) {
-  const dictionary = await getDictionary(params.lang); // Fetch the dictionary dynamically
+interface ParamsType {
+  params: {
+    lang: string;
+    id: string;
+  };
+}
+
+type Locale = 'en' | 'ka';
+
+export default async function ServicePage({ params }: ParamsType) {
+  const dictionary = await getDictionary(params.lang as Locale); // Fetch the dictionary dynamically
 
   const { id } = params;
 
