@@ -1,27 +1,49 @@
 import ServiceItem from './ServiceItem/ServiceItem';
 import services from '../../database/ServicesData';
 
-const convertTierToNumber = (tier) => {
+type Service = {
+  id: number,
+  img: string,
+  avatar: string,
+  category: string,
+  subCategory: string,
+  title: string,
+  desc: string,
+  tier: string,
+  price: string,
+  name: string,
+};
+
+type ServicesPageProps = {
+  searchParams?: {
+    sort?: string,
+    search?: string,
+  },
+  dictionary: Record<string, any>,
+  lang: string,
+};
+
+const convertTierToNumber = (tier: string): number => {
   const match = tier.match(/\d+/);
   return match ? parseInt(match[0], 10) : 0;
 };
 
-const convertPriceToNumber = (price) => {
+const convertPriceToNumber = (price: string): number => {
   if (price === 'TBD') return 0;
   const match = price.match(/\d+/);
   return match ? parseInt(match[0], 10) : 0;
 };
-``;
+
 export default async function ServicesPage({
   searchParams = {},
   dictionary,
   lang,
-}) {
+}: ServicesPageProps) {
   const sortType = searchParams?.sort || '';
   const searchTerm = searchParams?.search || '';
 
-  //filterin by title and description
-  let filteredServices = searchTerm
+  // Filtering by title and description
+  let filteredServices: Service[] = searchTerm
     ? services.filter((service) => {
         const searchWords = searchTerm.toLowerCase().split(' ');
         const titleLower = service.title.toLowerCase();

@@ -9,8 +9,8 @@ export default function SearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const updateSearchQuery = useDebouncedCallback((typedStuff) => {
-    const params = new URLSearchParams(searchParams);
+  const updateSearchQuery = useDebouncedCallback((typedStuff: string) => {
+    const params = new URLSearchParams(searchParams.toString());
     if (typedStuff) {
       params.set('search', typedStuff);
     } else {
