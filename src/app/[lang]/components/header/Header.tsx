@@ -1,10 +1,26 @@
+// Header.tsx
+import { FC } from 'react';
 import Link from 'next/link';
 import './Header.css';
-import Logo from '@/app/[lang]/utils/logo';
-import Hamburger from '@/app/[lang]/utils/hamburger';
+import Logo from '../../utils/logo';
+import Hamburger from '../../utils/hamburger';
 import ThemeToggle from './themeToggle';
 import LocaleSwitcher from './languageSwitcher';
-export default function Header({ lang, dictionary }) {
+
+interface HeaderProps {
+  lang: string;
+  dictionary: {
+    header: {
+      home: string;
+      services: string;
+      tasks: string;
+      aboutLink: string;
+      logout: string;
+    };
+  };
+}
+
+const Header: FC<HeaderProps> = ({ lang, dictionary }) => {
   return (
     <header>
       <div className="title-cont">
@@ -23,21 +39,17 @@ export default function Header({ lang, dictionary }) {
         <Link href={`/${lang}/about`} className="nav-link">
           {dictionary.header.aboutLink}
         </Link>
-        {/* <Link href="/products?page=1" className="nav-link">
-          Products
-        </Link> */}
       </nav>
       <div className="registration-cont">
         <LocaleSwitcher lang={lang} />
-        {/* Next linting rules might suggest using the Link component instead of an anchor tag. 
-        The Link component is meant to perform client-side transitions between pages. 
-        As the link points to an API route and not to a page, you should keep it as an anchor tag. */}
         <a href="/api/auth/logout" className="logout">
           {dictionary.header.logout}
         </a>
-        <ThemeToggle lang={lang} />
+        <ThemeToggle />
       </div>
       <Hamburger />
     </header>
   );
-}
+};
+
+export default Header;
