@@ -1,7 +1,23 @@
+import React from 'react';
 import Link from 'next/link';
-// import Pagination from '@/app/components/pagination/Pagination';
 
-const fetchProducts = async (page) => {
+interface Product {
+  id: number;
+  title: string;
+}
+
+interface ProductsData {
+  products: Product[];
+  total: number;
+}
+
+interface ProductsProps {
+  searchParams: {
+    page: string | undefined;
+  };
+}
+
+const fetchProducts = async (page: number): Promise<ProductsData> => {
   const limit = 10;
   const skip = (page - 1) * limit;
 
@@ -21,11 +37,20 @@ const fetchProducts = async (page) => {
   }
 };
 
-export default async function Products({ searchParams }) {
-  const page = parseInt(searchParams.page) || 1;
-  const data = await fetchProducts(page);
-  const products = data.products;
-  const totalPages = Math.ceil(data.total / 10);
+const Products: React.FC<ProductsProps> = ({ searchParams }) => {
+  const page = parseInt(searchParams.page ?? '1', 10);
+  const [products, setProducts] = React.useState<Product[]>([]);
+  const [totalPages, setTotalPages] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    const loadData = async () => {
+      const data = await fetchProducts(page);
+      setProducts(data.products);
+      setTotalPages(Math.ceil(data.total / 10));
+    };
+
+    loadData();
+  }, [page]);
 
   if (products.length === 0) {
     return <div>No products found</div>;
@@ -44,4 +69,6 @@ export default async function Products({ searchParams }) {
       {/* <Pagination currentPage={page} totalPages={totalPages} /> */}
     </div>
   );
-}
+};
+
+export default Products;
