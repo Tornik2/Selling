@@ -1,26 +1,26 @@
 import ServiceItem from './ServiceItem/ServiceItem';
-import services from '../../database/ServicesData';
+import { getAllItems } from '../../utils/supabaseUtils';
 
 type Service = {
-  id: number,
-  img: string,
-  avatar: string,
-  category: string,
-  subCategory: string,
-  title: string,
-  desc: string,
-  tier: string,
-  price: string,
-  name: string,
+  id: number;
+  img: string;
+  avatar: string;
+  category: string;
+  subCategory: string;
+  title: string;
+  desc: string;
+  tier: string;
+  price: string;
+  name: string;
 };
 
 type ServicesPageProps = {
   searchParams?: {
-    sort?: string,
-    search?: string,
-  },
-  dictionary: Record<string, any>,
-  lang: string,
+    sort?: string;
+    search?: string;
+  };
+  dictionary: Record<string, any>;
+  lang: string;
 };
 
 const convertTierToNumber = (tier: string): number => {
@@ -39,6 +39,9 @@ export default async function ServicesPage({
   dictionary,
   lang,
 }: ServicesPageProps) {
+  // Ensure the return type is of type `Service[]`
+  const services: Service[] = (await getAllItems('Services')) as Service[];
+
   const sortType = searchParams?.sort || '';
   const searchTerm = searchParams?.search || '';
 
@@ -55,6 +58,7 @@ export default async function ServicesPage({
       })
     : [...services];
 
+  // Sorting logic
   switch (sortType) {
     case 'price-high-to-low':
       filteredServices.sort(

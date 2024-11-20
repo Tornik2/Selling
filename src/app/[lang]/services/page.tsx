@@ -21,7 +21,6 @@ export default async function Services({
   params,
 }: ServicesProps) {
   const dictionary = await getDictionary(params.lang as Locale);
-  console.log(dictionary);
 
   return (
     <main className="services-main">
