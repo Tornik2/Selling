@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import services from '../../database/ServicesData';
+import { getItemById } from '../../utils/supabaseUtils';
 import './ServicePage.css';
 import { getDictionary } from '../../../../../get-dictionaries'; // Import the server-side function
 
@@ -18,6 +18,13 @@ export default async function ServicePage({ params }: ParamsType) {
 
   const { id } = params;
 
+  const services = await getItemById('Services', id);
+  console.log(services);
+
+  if (!services || !Array.isArray(services) || services.length === 0) {
+    notFound();
+  }
+
   // Find the service that matches the id from the URL
   const service = services.find(
     (service) =>
@@ -26,6 +33,7 @@ export default async function ServicePage({ params }: ParamsType) {
         service.id ===
       id
   );
+  console.log(service);
 
   // If service not found, show 404 page
   if (!service) {
