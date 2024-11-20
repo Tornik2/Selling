@@ -1,48 +1,55 @@
 import supabase from './supabase';
+import { Database } from './database.types';
 
-// Get table names automatically from Supabase client type
-type Database = typeof supabase extends {
-  from: (table: infer T) => any;
-}
-  ? T
-  : never;
+// Generic type for table names
+type TableName = keyof Database['public']['Tables'];
 
-// Now TableName will automatically include all tables from your database
-export type TableName = Database;
-
-export async function getItems(tableName: TableName) {
-  const { data, error } = await supabase.from(tableName).select('id, title');
+// Generic function to fetch all items from a table
+export async function getAllItems<T extends TableName>(
+  tableName: T
+): Promise<Database['public']['Tables'][T]['Row'][] | null> {
+  const { data, error } = await supabase.from(tableName).select('*');
 
   if (error) {
-    console.error(`Error fetching ${tableName}:`, error);
+    console.error(`Error fetching items from ${tableName}:`, error);
     return null;
   }
 
-  return data;
+  return data as Database['public']['Tables'][T]['Row'][];
 }
 
-export async function getItemById(tableName: TableName, id: string) {
+// Generic function to fetch an item by ID
+export async function getItemById<T extends TableName>(
+  tableName: T,
+  id: string | number
+): Promise<Database['public']['Tables'][T]['Row'] | null> {
   const { data, error } = await supabase
     .from(tableName)
-    .select()
-    .match({ id })
+    .select('*')
+    .eq('id', id)
     .single();
 
   if (error) {
-    console.error(`Error fetching ${tableName} with id ${id}:`, error);
+    console.error(
+      `Error fetching item with id ${id} from ${tableName}:`,
+      error
+    );
     return null;
   }
 
-  return data;
+  return data as Database['public']['Tables'][T]['Row'];
 }
 
-export async function getItemIds(tableName: TableName) {
+// Generic function to fetch only IDs from a table
+export async function getItemIds<T extends TableName>(
+  tableName: T
+): Promise<(string | number)[] | null> {
   const { data, error } = await supabase.from(tableName).select('id');
 
   if (error) {
-    console.error(`Error fetching ${tableName} ids:`, error);
+    console.error(`Error fetching ${tableName} IDs:`, error);
     return null;
   }
 
-  return data;
+  return data.map((item) => item.id);
 }
