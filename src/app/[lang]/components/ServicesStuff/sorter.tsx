@@ -2,27 +2,38 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function Sorter({ dictionary }) {
+interface SorterProps {
+  dictionary: {
+    sorter: {
+      prhigh: string;
+      prlow: string;
+      trhigh: string;
+      trlow: string;
+      options: string;
+    };
+  };
+}
+
+const Sorter = ({ dictionary }: SorterProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // Get current sort from URL or default to 'Sort Options'
-  const currentSort = searchParams.get('sort') || 'Sort Options';
+  const currentSort: string | null = searchParams.get('sort');
+  const currentSortOption = currentSort || 'Sort Options';
 
-  const sortOptions = {
+  const sortOptions: { [key: string]: string } = {
     'price-high-to-low': dictionary.sorter.prhigh,
     'price-low-to-high': dictionary.sorter.prlow,
     'tier-high-to-low': dictionary.sorter.trhigh,
     'tier-low-to-high': dictionary.sorter.trlow,
   };
 
-  const handleSortChange = (option) => {
+  const handleSortChange = (option: string) => {
     setIsOpen(false);
-    const sortParam = option;
-
     const params = new URLSearchParams(searchParams);
-    params.set('sort', sortParam);
+    params.set('sort', option);
 
     // Update URL with the sort parameter (no need to encode manually)
     router.push(`${window.location.pathname}?${params.toString()}`, {
@@ -33,7 +44,7 @@ export default function Sorter({ dictionary }) {
   return (
     <div className="sorter">
       <button onClick={() => setIsOpen(!isOpen)} className="SortButton">
-        {sortOptions[currentSort] || dictionary.sorter.options}
+        {sortOptions[currentSortOption] || dictionary.sorter.options}
         {isOpen && (
           <div className="sortMenu">
             {Object.keys(sortOptions).map((option) => (
@@ -50,4 +61,6 @@ export default function Sorter({ dictionary }) {
       </button>
     </div>
   );
-}
+};
+
+export default Sorter;
