@@ -1,59 +1,26 @@
-import React from 'react';
 import Link from 'next/link';
+import { getAllItems, getItemIds } from '../../utils/supabaseUtils'; // Update the path if needed
 
-interface Product {
-  id: number;
-  title: string;
-}
+export const revalidate = 60; // Enable ISR
 
-interface ProductsData {
-  products: Product[];
-  total: number;
-}
+// Generate static params for dynamic routes
+export async function generateStaticParams() {
+  const productIds = await getItemIds('products'); // Fetch only IDs from the 'products' table
 
-interface ProductsProps {
-  searchParams: {
-    page: string | undefined;
-  };
-}
-
-const fetchProducts = async (page: number): Promise<ProductsData> => {
-  const limit = 10;
-  const skip = (page - 1) * limit;
-
-  try {
-    const res = await fetch(
-      `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
-    );
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch products');
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    return { products: [], total: 0 };
+  if (!productIds) {
+    return [];
   }
-};
 
-const Products: React.FC<ProductsProps> = ({ searchParams }) => {
-  const page = parseInt(searchParams.page ?? '1', 10);
-  const [products, setProducts] = React.useState<Product[]>([]);
-  const [totalPages, setTotalPages] = React.useState<number>(0);
+  return productIds.map((id) => ({
+    id: id.toString(), // Convert IDs to strings as route parameters
+  }));
+}
 
-  React.useEffect(() => {
-    const loadData = async () => {
-      const data = await fetchProducts(page);
-      setProducts(data.products);
-      setTotalPages(Math.ceil(data.total / 10));
-    };
+export default async function Products() {
+  const products = await getAllItems('products');
 
-    loadData();
-  }, [page]);
-
-  if (products.length === 0) {
-    return <div>No products found</div>;
+  if (!products) {
+    return <p>No products found.</p>;
   }
 
   return (
@@ -62,13 +29,12 @@ const Products: React.FC<ProductsProps> = ({ searchParams }) => {
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            <Link href={`/products/${product.id}`}>{product.title}</Link>
+            <Link href={`/products/${product.id}`}>
+              {product.title || 'Untitled Product'}
+            </Link>
           </li>
         ))}
       </ul>
-      {/* <Pagination currentPage={page} totalPages={totalPages} /> */}
     </div>
   );
-};
-
-export default Products;
+}

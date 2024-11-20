@@ -17,6 +17,7 @@
   "header": {
     "aboutLink": "About Us",
     "tasks": "Tasks",
+    "products": "Products",
     "services": "Services",
     "home": "Home",
     "logout": "Log out"
