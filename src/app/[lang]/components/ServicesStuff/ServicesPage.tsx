@@ -14,12 +14,22 @@ type Service = {
   name: string;
 };
 
+type Dictionary = {
+  servicesPage: {
+    notFound: string;
+  };
+};
+
 type ServicesPageProps = {
   searchParams?: {
-    sort?: string;
+    sort?:
+      | 'price-high-to-low'
+      | 'price-low-to-high'
+      | 'tier-high-to-low'
+      | 'tier-low-to-high';
     search?: string;
   };
-  dictionary: Record<string, any>;
+  dictionary: Dictionary;
   lang: string;
 };
 
