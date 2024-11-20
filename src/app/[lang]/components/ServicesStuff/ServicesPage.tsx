@@ -2,25 +2,35 @@ import ServiceItem from './ServiceItem/ServiceItem';
 import services from '../../database/ServicesData';
 
 type Service = {
-  id: number,
-  img: string,
-  avatar: string,
-  category: string,
-  subCategory: string,
-  title: string,
-  desc: string,
-  tier: string,
-  price: string,
-  name: string,
+  id: number;
+  img: string;
+  avatar: string;
+  category: string;
+  subCategory: string;
+  title: string;
+  desc: string;
+  tier: string;
+  price: string;
+  name: string;
+};
+
+type Dictionary = {
+  servicesPage: {
+    notFound: string;
+  };
 };
 
 type ServicesPageProps = {
   searchParams?: {
-    sort?: string,
-    search?: string,
-  },
-  dictionary: Record<string, any>,
-  lang: string,
+    sort?:
+      | 'price-high-to-low'
+      | 'price-low-to-high'
+      | 'tier-high-to-low'
+      | 'tier-low-to-high';
+    search?: string;
+  };
+  dictionary: Dictionary;
+  lang: string;
 };
 
 const convertTierToNumber = (tier: string): number => {
