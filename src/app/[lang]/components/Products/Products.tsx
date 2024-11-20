@@ -1,74 +1,66 @@
-import React from 'react';
 import Link from 'next/link';
+import { getAllItems, getItemIds } from '../../utils/supabaseUtils';
+import Image from 'next/image';
+import './Products.css';
 
-interface Product {
-  id: number;
-  title: string;
-}
+export const revalidate = 60;
 
-interface ProductsData {
-  products: Product[];
-  total: number;
+export async function generateStaticParams() {
+  const productIds = await getItemIds('products');
+  if (!productIds) {
+    return [];
+  }
+
+  return productIds.map((id) => ({
+    id: id.toString(),
+  }));
 }
 
 interface ProductsProps {
-  searchParams: {
-    page: string | undefined;
-  };
+  lang: string;
 }
 
-const fetchProducts = async (page: number): Promise<ProductsData> => {
-  const limit = 10;
-  const skip = (page - 1) * limit;
+export default async function Products({ lang }: ProductsProps) {
+  const products = await getAllItems('products');
 
-  try {
-    const res = await fetch(
-      `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
-    );
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch products');
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    return { products: [], total: 0 };
-  }
-};
-
-const Products: React.FC<ProductsProps> = ({ searchParams }) => {
-  const page = parseInt(searchParams.page ?? '1', 10);
-  const [products, setProducts] = React.useState<Product[]>([]);
-  const [totalPages, setTotalPages] = React.useState<number>(0);
-
-  React.useEffect(() => {
-    const loadData = async () => {
-      const data = await fetchProducts(page);
-      setProducts(data.products);
-      setTotalPages(Math.ceil(data.total / 10));
-    };
-
-    loadData();
-  }, [page]);
-
-  if (products.length === 0) {
-    return <div>No products found</div>;
+  if (!products) {
+    return <p>No products found.</p>;
   }
 
   return (
-    <div>
-      <h1>Products</h1>
-      <ul>
+    <main className="products-main">
+      <h1 className="products-title">Products</h1>
+      <div className="products-list">
         {products.map((product) => (
-          <li key={product.id}>
-            <Link href={`/products/${product.id}`}>{product.title}</Link>
-          </li>
+          <div key={product.id} className="product-item">
+            <Link href={`/${lang}/products/${product.id}`} passHref>
+              <div className="img-container">
+                <Image
+                  src={product.thumbnail || '/path/to/default-image.png'} // Provide fallback image
+                  alt={product.title || 'Product Image'}
+                  fill
+                  priority
+                  className="product-image"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="text-container">
+                <h6>
+                  <p>{product.category}</p>
+                </h6>
+                <h2>
+                  <div>{product.title}</div>
+                </h2>
+                <p className="desc">{product.description}</p>
+                <div className="attract">
+                  <h3 className="brand">{product.brand}</h3>
+                  <h4 className="pricing">{product.price}$</h4>
+                </div>
+              </div>
+            </Link>
+          </div>
         ))}
-      </ul>
-      {/* <Pagination currentPage={page} totalPages={totalPages} /> */}
-    </div>
+      </div>
+    </main>
   );
-};
-
-export default Products;
+}

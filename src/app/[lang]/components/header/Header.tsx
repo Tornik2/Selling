@@ -16,6 +16,7 @@ interface HeaderProps {
       tasks: string;
       aboutLink: string;
       logout: string;
+      products: string;
     };
   };
 }
@@ -33,8 +34,8 @@ const Header: FC<HeaderProps> = ({ lang, dictionary }) => {
         <Link href={`/${lang}/services`} className="nav-link">
           {dictionary.header.services}
         </Link>
-        <Link href={`/${lang}/tasks`} className="nav-link">
-          {dictionary.header.tasks}
+        <Link href={`/${lang}/products`} className="nav-link">
+          {dictionary.header.products}
         </Link>
         <Link href={`/${lang}/about`} className="nav-link">
           {dictionary.header.aboutLink}
