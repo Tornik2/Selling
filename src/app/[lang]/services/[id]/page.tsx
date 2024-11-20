@@ -15,36 +15,33 @@ type Locale = 'en' | 'ka';
 
 export default async function ServicePage({ params }: ParamsType) {
   const dictionary = await getDictionary(params.lang as Locale); // Fetch the dictionary dynamically
+  const numericId = params.id.split('-').pop();
+  if (!numericId) {
+    // Handle the case when numericId is undefined or null
+    notFound();
+  }
+  const service = await getItemById('Services', numericId);
+  console.log(service);
 
-  const { id } = params;
-
-  const services = await getItemById('Services', id);
-  console.log(services);
-
-  if (!services || !Array.isArray(services) || services.length === 0) {
+  if (!service) {
     notFound();
   }
 
   // Find the service that matches the id from the URL
-  const service = services.find(
-    (service) =>
-      service.title.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase() +
-        '-' +
-        service.id ===
-      id
-  );
-  console.log(service);
-
-  // If service not found, show 404 page
-  if (!service) {
-    notFound();
-  }
 
   return (
     <div className="product-page">
       <div className="cont">
         <div className="profile-info">
-          <Image src={service.avatar} alt="avatar" width={100} height={100} />
+          {service.avatar && (
+            <Image
+              src={service.avatar}
+              alt="avatar"
+              width={100}
+              height={100}
+              className="rounded-full mr-4 object-cover"
+            />
+          )}{' '}
           <div className="profile-text-info">
             <h4>{service.name}</h4>
             <p>{service.tier}</p>
@@ -56,7 +53,7 @@ export default async function ServicePage({ params }: ParamsType) {
       <p className="desc">{service.desc}</p>
       <div className="contacts">
         <h6>{dictionary.serviceID.contacts}</h6>
-        <p className="number">{service.Number}</p>
+        <p className="number">{service.number}</p>
         <button>{dictionary.serviceID.msg}</button>
       </div>
     </div>

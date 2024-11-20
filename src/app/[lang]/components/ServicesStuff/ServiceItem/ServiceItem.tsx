@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 interface ServiceItemProps {
   lang: string;
-  id: string;
+  id: number | string;
   img: string;
   category: string;
   subCategory: string;
