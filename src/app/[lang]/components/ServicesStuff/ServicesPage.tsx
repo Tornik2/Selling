@@ -7,6 +7,7 @@ type Service = {
   avatar: string;
   category: string;
   subCategory: string;
+  hyperlink: string;
   title: string;
   desc: string;
   tier: string;
@@ -50,7 +51,10 @@ export default async function ServicesPage({
   lang,
 }: ServicesPageProps) {
   // Ensure the return type is of type `Service[]`
-  const services: Service[] = (await getAllItems('Services')) as Service[];
+  console.log(`Services_${lang}`);
+  const services: Service[] = (await getAllItems(
+    `Services_${lang}`
+  )) as Service[];
 
   const sortType = searchParams?.sort || '';
   const searchTerm = searchParams?.search || '';
@@ -93,7 +97,7 @@ export default async function ServicesPage({
     default:
       break;
   }
-
+  console.log(filteredServices);
   return (
     <div className="services-list">
       {filteredServices.length === 0 ? (
@@ -107,12 +111,13 @@ export default async function ServicesPage({
             avatar={service.avatar}
             category={service.category}
             subCategory={service.subCategory}
+            hyperlink={service.hyperlink}
             title={service.title}
             desc={service.desc}
             tier={service.tier}
             price={service.price}
             name={service.name}
-            id={`${service.title
+            id={`${service.hyperlink
               .replace(/[^a-zA-Z0-9]+/g, '-')
               .toLowerCase()}-${service.id}`}
           />

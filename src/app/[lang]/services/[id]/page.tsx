@@ -20,8 +20,10 @@ export default async function ServicePage({ params }: ParamsType) {
     // Handle the case when numericId is undefined or null
     notFound();
   }
-  const service = await getItemById('Services', numericId);
-  console.log(service);
+  const service = await getItemById(
+    `Services_${params.lang}` as 'Services' | 'posts' | 'products',
+    numericId
+  );
 
   if (!service) {
     notFound();
