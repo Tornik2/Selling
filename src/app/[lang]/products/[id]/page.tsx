@@ -6,24 +6,24 @@ import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import QuantitySelector from '../../utils/quantitySelector';
 import { getItemById } from '../../utils/supabaseUtils'; // Import the function to fetch data from Supabase
 import { Database } from '../../utils/database.types'; // Make sure you have this type for your database
- 
+
 // Function to render the stars based on rating
 const renderStars = (rating: number) => {
   const roundedRating = Math.round(rating * 2) / 2; // Round to nearest 0.5
   const fullStars = Math.floor(roundedRating); // Get the full star count
   const hasHalfStar = roundedRating - fullStars === 0.5; // Check if there's a half star
   const stars = [];
- 
+
   for (let i = 0; i < fullStars; i++) {
     stars.push(<FontAwesomeIcon key={i} icon={faStar} />);
   }
- 
+
   if (hasHalfStar) {
     stars.push(<FontAwesomeIcon key={fullStars} icon={faStarHalfAlt} />);
   }
   return stars;
 };
- 
+
 // Function to format the date if necessary
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -37,21 +37,24 @@ const formatDate = (dateString: string) => {
     hour12: true,
   });
 };
- 
+
 interface ProductPageProps {
-  params: { id: string }; // Product ID from URL params
+  params: { id: string; lang: string }; // Product ID from URL params
 }
- 
+
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = params; // Get the ID from URL parameters
- 
+
   // Fetch product details from Supabase
-  const product = await getItemById('products', id);
- 
+  const product = await getItemById(
+    `products_${params.lang}` as 'Services' | 'posts' | 'products',
+    id
+  );
+
   if (!product) {
     return <p>No product found.</p>;
   }
- 
+
   return (
     <div id="productPage">
       <div className="heading">
