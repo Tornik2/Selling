@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 interface QuantitySelectorProps {
-  stock: number;
-  minOrder: number;
+  stock: number | null;
+  minOrder: number | null;
 }
 
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({

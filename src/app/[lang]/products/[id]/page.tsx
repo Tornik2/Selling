@@ -1,4 +1,4 @@
-import styles from './productPage.css';
+import styles from 'productPage.css';
 import ImageSlider from '../../utils/imageSlider';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
