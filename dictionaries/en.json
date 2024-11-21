@@ -17,7 +17,9 @@
   "header": {
     "aboutLink": "About Us",
     "tasks": "Tasks",
+    "products": "Products",
     "services": "Services",
+    "profile": "Profile",
     "home": "Home",
     "logout": "Log out"
   },
@@ -39,7 +41,26 @@
     "span": "ServIt Up:",
     "nospan": "Let Skills Meet Opportunities!"
   },
+  "products": {
+    "products": "Products",
+    "noProducts": "No products found"
+  },
+  "productsID": {
+    "stock": "Amount in stock",
+    "order": "Minimum order quantity",
+    "cart": "Add to cart",
+    "buy": "Buy now",
+    "dimensions": "Dimensions",
+    "width": "Width",
+    "height": "Height",
+    "depth": "Depth"
+  },
   "language": {
     "lang": "ქარ"
+  },
+  "profile": {
+    "title": "'s Profile",
+    "name": "Full name:",
+    "mail": "Mail:"
   }
 }

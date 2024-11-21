@@ -4,16 +4,14 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
-export default function ThemeToggle() {
+const ThemeToggle: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  // Set initial theme based on localStorage or system theme
   useEffect(() => {
     setMounted(true);
-  }, []); // Runs once when component mounts
+  }, []);
 
-  // Avoid rendering until the component is mounted
   if (!mounted) {
     return null;
   }
@@ -30,4 +28,6 @@ export default function ThemeToggle() {
       )}
     </button>
   );
-}
+};
+
+export default ThemeToggle;

@@ -1,27 +1,67 @@
 import ServiceItem from './ServiceItem/ServiceItem';
-import services from '../../database/ServicesData';
+import { getAllItems } from '../../utils/supabaseUtils';
+import { Locale } from '../../../../../get-dictionaries';
 
-const convertTierToNumber = (tier) => {
+type Service = {
+  id: number;
+  img: string;
+  avatar: string;
+  category: string;
+  subCategory: string;
+  hyperlink: string;
+  title: string;
+  desc: string;
+  tier: string;
+  price: string;
+  name: string;
+};
+
+type Dictionary = {
+  servicesPage: {
+    notFound: string;
+  };
+};
+
+type ServicesPageProps = {
+  searchParams?: {
+    sort?:
+      | 'price-high-to-low'
+      | 'price-low-to-high'
+      | 'tier-high-to-low'
+      | 'tier-low-to-high';
+    search?: string;
+  };
+  dictionary: Dictionary;
+  lang: Locale;
+};
+
+const convertTierToNumber = (tier: string): number => {
   const match = tier.match(/\d+/);
   return match ? parseInt(match[0], 10) : 0;
 };
 
-const convertPriceToNumber = (price) => {
+const convertPriceToNumber = (price: string): number => {
   if (price === 'TBD') return 0;
   const match = price.match(/\d+/);
   return match ? parseInt(match[0], 10) : 0;
 };
-``;
+
 export default async function ServicesPage({
   searchParams = {},
   dictionary,
   lang,
-}) {
+}: ServicesPageProps) {
+  // Ensure the return type is of type `Service[]`
+  console.log(`Services_${lang}`);
+  const services: Service[] = (await getAllItems(
+    `Services_${lang}`
+  )) as Service[];
+
   const sortType = searchParams?.sort || '';
   const searchTerm = searchParams?.search || '';
 
-  //filterin by title and description
-  let filteredServices = searchTerm
+  // Filtering by title and description
+  let filteredServices: Service[] = searchTerm
     ? services.filter((service) => {
         const searchWords = searchTerm.toLowerCase().split(' ');
         const titleLower = service.title.toLowerCase();
@@ -33,6 +73,7 @@ export default async function ServicesPage({
       })
     : [...services];
 
+  // Sorting logic
   switch (sortType) {
     case 'price-high-to-low':
       filteredServices.sort(
@@ -57,7 +98,7 @@ export default async function ServicesPage({
     default:
       break;
   }
-
+  console.log(filteredServices);
   return (
     <div className="services-list">
       {filteredServices.length === 0 ? (
@@ -71,12 +112,13 @@ export default async function ServicesPage({
             avatar={service.avatar}
             category={service.category}
             subCategory={service.subCategory}
+            hyperlink={service.hyperlink}
             title={service.title}
             desc={service.desc}
             tier={service.tier}
             price={service.price}
             name={service.name}
-            id={`${service.title
+            id={`${service.hyperlink
               .replace(/[^a-zA-Z0-9]+/g, '-')
               .toLowerCase()}-${service.id}`}
           />

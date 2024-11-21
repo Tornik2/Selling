@@ -2,23 +2,38 @@ import './ServiceItem.css';
 import Link from 'next/link';
 import Image from 'next/image';
 
+interface ServiceItemProps {
+  lang: string;
+  id: number | string;
+  img: string;
+  category: string;
+  subCategory: string;
+  hyperlink: string;
+  title: string;
+  desc: string;
+  avatar: string;
+  name: string;
+  tier: string;
+  price: string;
+}
+
 export default function ServiceItem({
   lang,
   id,
   img,
   category,
   subCategory,
+  hyperlink,
   title,
   desc,
   avatar,
   name,
   tier,
   price,
-}) {
+}: ServiceItemProps) {
   return (
     <div className="service-item">
       <Link href={`/${lang}/services/${id}`}>
-        {' '}
         <div className="img-container">
           <Image
             src={img}
