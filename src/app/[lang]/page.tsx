@@ -1,13 +1,8 @@
 import { getDictionary } from '../../../get-dictionaries';
+import { Locale } from '../../../get-dictionaries';
 
-interface HomeProps {
-  params: {
-    lang: string;
-  };
-}
-
-export default async function Home({ params: { lang } }: HomeProps) {
-  const dictionary = await getDictionary(lang);
+export default async function Home({ params }: { params: { lang: Locale } }) {
+  const dictionary = await getDictionary(params.lang);
 
   return (
     <main className="home">

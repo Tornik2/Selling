@@ -1,4 +1,4 @@
-import { getDictionary } from '../../../../get-dictionaries';
+import { getDictionary, Locale } from '../../../../get-dictionaries';
 import About from '../components/About/About';
 
 interface AboutContent {
@@ -13,7 +13,7 @@ interface Dictionary {
 export default async function AboutPage({
   params,
 }: {
-  params: { lang: string };
+  params: { lang: Locale };
 }) {
   const dictionary: Dictionary = await getDictionary(params.lang);
 

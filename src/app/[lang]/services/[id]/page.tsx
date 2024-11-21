@@ -2,34 +2,29 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getItemById } from '../../utils/supabaseUtils';
 import './ServicePage.css';
-import { getDictionary } from '../../../../../get-dictionaries'; // Import the server-side function
+import { getDictionary, Locale } from '../../../../../get-dictionaries';
+import type { Database } from '../../utils/database.types';
 
 interface ParamsType {
   params: {
-    lang: string;
+    lang: Locale;
     id: string;
   };
 }
 
-type Locale = 'en' | 'ka';
-
 export default async function ServicePage({ params }: ParamsType) {
-  const dictionary = await getDictionary(params.lang as Locale); // Fetch the dictionary dynamically
+  const dictionary = await getDictionary(params.lang as Locale);
   const numericId = params.id.split('-').pop();
+
   if (!numericId) {
-    // Handle the case when numericId is undefined or null
     notFound();
   }
-  const service = await getItemById(
-    `Services_${params.lang}` as 'Services' | 'posts' | 'products',
-    numericId
-  );
+
+  const service = await getItemById(`Services_${params.lang}`, numericId);
 
   if (!service) {
     notFound();
   }
-
-  // Find the service that matches the id from the URL
 
   return (
     <div className="product-page">
@@ -43,14 +38,14 @@ export default async function ServicePage({ params }: ParamsType) {
               height={100}
               className="rounded-full mr-4 object-cover"
             />
-          )}{' '}
+          )}
           <div className="profile-text-info">
             <h4>{service.name}</h4>
             <p>{service.tier}</p>
           </div>
         </div>
         <h1>{service.title}</h1>
-        <p className="price">{service.price} </p>
+        <p className="price">{service.price}</p>
       </div>
       <p className="desc">{service.desc}</p>
       <div className="contacts">

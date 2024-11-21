@@ -2,18 +2,22 @@ import './Services.css';
 import ServicesPage from '../components/ServicesStuff/ServicesPage';
 import Sorter from '../components/ServicesStuff/sorter';
 import SearchBar from '../components/ServicesStuff/searchBar';
-import { getDictionary } from '../../../../get-dictionaries';
+import { getDictionary, Locale } from '../../../../get-dictionaries';
 
 interface ServicesProps {
   params: {
-    lang: string; // The language parameter passed to the component
+    lang: Locale; // The language parameter passed to the component
   };
   searchParams: {
-    sort?: string; // Optional sort parameter
+    sort?:
+      | 'price-high-to-low'
+      | 'price-low-to-high'
+      | 'tier-high-to-low'
+      | 'tier-low-to-high'
+      | undefined; // Optional sort parameter
     search?: string; // Optional search parameter
   };
 }
-type Locale = 'en' | 'ka';
 
 // The main Services component
 export default async function Services({
