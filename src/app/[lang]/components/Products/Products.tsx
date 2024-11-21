@@ -21,7 +21,10 @@ interface ProductsProps {
 }
 
 export default async function Products({ lang }: ProductsProps) {
-  const products = await getAllItems('products');
+  const products = await getAllItems(
+    `products_${lang}` as 'Services' | 'posts' | 'products'
+  );
+  console.log(products);
 
   if (!products) {
     return <p>No products found.</p>;
