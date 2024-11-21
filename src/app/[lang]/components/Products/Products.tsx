@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { getAllItems, getItemIds } from '../../utils/supabaseUtils';
+import { getDictionary } from '../../../../../get-dictionaries';
+import { Locale } from '../../../../../get-dictionaries';
 import Image from 'next/image';
 import './Products.css';
 
@@ -21,15 +23,18 @@ interface ProductsProps {
 }
 
 export default async function Products({ lang }: ProductsProps) {
-  const products = await getAllItems('products');
+  const dictionary = await getDictionary(lang as 'en');
+  const products = await getAllItems(
+    `products_${lang}` as 'Services' | 'posts' | 'products'
+  );
 
   if (!products) {
-    return <p>No products found.</p>;
+    return <p>{dictionary.products.noProducts}.</p>;
   }
 
   return (
     <main className="products-main">
-      <h1 className="products-title">Products</h1>
+      <h1 className="products-title">{dictionary.products.products}</h1>
       <div className="products-list">
         {products.map((product) => (
           <div key={product.id} className="product-item">

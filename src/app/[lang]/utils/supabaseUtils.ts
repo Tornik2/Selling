@@ -7,9 +7,10 @@ type TableName = keyof Database['public']['Tables'];
 // Generic function to fetch all items from a table
 export async function getAllItems<T extends TableName>(
   tableName: T
+  // lang: string
 ): Promise<Database['public']['Tables'][T]['Row'][] | null> {
   const { data, error } = await supabase.from(tableName).select('*');
-
+  // .eq('language', lang);
   if (error) {
     console.error(`Error fetching items from ${tableName}:`, error);
     return null;

@@ -41,6 +41,20 @@
     "span": "ServIt Up:",
     "nospan": "Let Skills Meet Opportunities!"
   },
+  "products": {
+    "products": "Products",
+    "noProducts": "No products found"
+  },
+  "productsID": {
+    "stock": "Amount in stock",
+    "order": "Minimum order quantity",
+    "cart": "Add to cart",
+    "buy": "Buy now",
+    "dimensions": "Dimensions",
+    "width": "Width",
+    "height": "Height",
+    "depth": "Depth"
+  },
   "language": {
     "lang": "ქარ"
   },
