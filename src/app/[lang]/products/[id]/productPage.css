@@ -1,5 +1,5 @@
 #productPage {
-  background-color: #f9f0db;
+  background-color: var(--background-color);
   padding: 4.8rem;
 }
 #productPage .heading {
@@ -11,7 +11,7 @@
 }
 #productPage .productTitle {
   font-size: 3.2rem;
-  color: #df9c65;
+  color: var(--primary-color);
 }
 #productPage .stars {
   display: flex;
@@ -21,7 +21,8 @@
 #productPage .heading .svg-inline--fa.fa-star,
 #productPage .heading .svg-inline--fa.fa-star-half-stroke {
   width: 32px;
-  color: #df9c65;
+  height: 32px;
+  color: var(--primary-color);
 }
 @media only screen and (max-width: 900px) {
   #productPage .productTitle {
@@ -39,7 +40,7 @@
     justify-content: center;
   }
 }
-
+ 
 #productPage .grouping {
   display: flex;
   align-items: center;
@@ -55,32 +56,32 @@
 #productPage .category {
   padding: 0.6rem 1.2rem;
   border-radius: 30rem;
-  background-color: #ad9f92;
+  background-color: var(--secondary-accent);
   color: #fff;
   transition: 0.4s;
 }
 #productPage .tag {
   padding: 0.6rem 1.2rem;
   border-radius: 30rem;
-  background-color: #df9c65;
+  background-color: var(--accent);
   color: #fff;
   transition: 0.4s;
 }
 #productPage .category:hover {
-  background-color: #fff;
-  color: #ad9f92;
+  background-color: var(--hover-color);
+  color: var(--text-color);
 }
 #productPage .category:active {
   background-color: #df9c65;
-  color: #fff;
+  color: var(--text-color);
 }
 #productPage .tag:hover {
   background-color: #fff;
   color: #df9c65;
 }
 #productPage .tag:active {
-  background-color: #ad9f92;
-  color: #fff;
+  background-color: var(--hover-color);
+  color: var(--text-color);
 }
 #productPage .gridCont {
   grid-template-columns: 2fr 1fr;
@@ -91,7 +92,7 @@
 #productPage .slider {
   aspect-ratio: 2/1;
   position: relative;
-  background-image: url(/images/cool-background.png);
+  background-color: var(--secondary-accent);
   border-radius: 16px;
 }
 #productPage .image {
@@ -123,7 +124,7 @@
   color: #fff;
 }
 #productPage .sideBar {
-  background-color: #df9c65;
+  background-color: var(--accent);
   grid-area: 1/2/3/3;
   border-radius: 16px;
   padding: 4.8rem;
@@ -141,7 +142,7 @@
 }
 #productPage .price {
   font-size: 2.4rem;
-  color: #fff;
+  color: var(--text-color);
 }
 #productPage .discounting {
   display: flex;
@@ -150,12 +151,12 @@
 }
 #productPage .discount {
   font-size: 1.8rem;
-  color: #a31621;
+  color: var(--primary-color);
   text-decoration: line-through;
 }
 #productPage .off {
   font-size: 1.8rem;
-  color: #a31621;
+  color: var(--primary-color);
 }
 #productPage .sideBarHeading {
   display: flex;
@@ -166,15 +167,15 @@
 }
 #productPage .brand {
   font-size: 2.4rem;
-  color: #fff;
+  color: var(--text-color);
 }
 #productPage .legalInfo {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
   font-size: 1.8rem;
-  background-color: #f9f0db;
-  color: black;
+  background-color: var(--secondary-accent);
+  color: var(--text-color);
   align-items: center;
   border-radius: 8px;
   padding: 1.2rem;
@@ -184,15 +185,15 @@
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  color: black;
+  color: var(--text-color);
   align-items: center;
-  background-color: #f9f0db;
+  background-color: var(--secondary-accent);
   border-radius: 8px;
   padding: 1.2rem;
   margin-bottom: 4.8rem;
 }
 #productPage .stocks span {
-  color: #a31621;
+  color: var(--primary-color);
 }
 #productPage .stocks .stock {
   font-size: 2rem;
@@ -200,27 +201,27 @@
 #productPage .stocks .minOrder {
   font-size: 1.6rem;
 }
-
+ 
 #productPage .quantitySelector {
   position: relative;
   width: 70%;
 }
-
+ 
 #productPage .quantityButton {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--background-color);
   padding: 1.2rem 2.4rem;
   border-radius: 12px;
-  color: #fff;
-  background-color: #df9c65;
+  color: var(--text-color);
+  background-color: var(--accent);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1.6rem;
 }
-
+ 
 #productPage .dropdownMenu {
   position: absolute;
   top: 100%;
@@ -228,12 +229,12 @@
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
-  background-color: #f9f0db;
+  background-color: var(--accent);
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
-
+ 
 #productPage .dropdownOption {
   width: 100%;
   padding: 8px;
@@ -243,9 +244,9 @@
   cursor: pointer;
   text-align: left;
 }
-
+ 
 #productPage .dropdownOption:hover {
-  background-color: #df9c65;
+  background-color: var(--secondary-accent);
   color: #fff;
 }
 #productPage .buttons {
@@ -257,34 +258,34 @@
   padding: 1.2rem 2.4rem;
   border: 1px solid transparent;
   border-radius: 8px;
-  background-color: #f9f0db;
+  background-color: var(--secondary-accent);
   font-size: 1.6rem;
   cursor: pointer;
   transition: 0.4s;
 }
 #productPage .addCartBtn:hover {
-  background-color: #df9c65;
-  border: 1px solid #f9f0db;
-  color: #fff;
+  background-color: var(--hover-color);
+  border: 1px solid #44bba4;
+  color: var(--text-color);
 }
 #productPage .buyBtn {
   padding: 1.2rem 2.4rem;
   border: 1px solid transparent;
   border-radius: 8px;
-  background-color: #a31621;
-  color: #fff;
+  background-color: #44bba4;
+  color: var(--text-color);
   font-size: 1.6rem;
   cursor: pointer;
   transition: 0.4s;
 }
 #productPage .buyBtn:hover {
-  background-color: #df9c65;
-  border: 1px solid #a31621;
-  color: #a31621;
+  background-color: var(--hover-color);
+  border: 1px solid #44bba4;
+  color: #44bba4;
 }
 #productPage .textSection {
-  background-color: #ad9f92;
-  color: #fff;
+  background-color: var(--accent);
+  color: var(--text-color);
   border-radius: 12px;
   padding: 3.2rem;
   display: flex;
@@ -298,7 +299,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--text-color);
   padding-top: 1.2rem;
 }
 #productPage .textSection .additionalInfo .sku,
@@ -315,7 +316,7 @@
 #productPage .reviewsCont .svg-inline--fa.fa-star,
 #productPage .reviewsCont .svg-inline--fa.fa-star-half-stroke {
   width: 18px;
-  color: #df9c65;
+  color: var(--primary-color);
 }
 #productPage .reviewsCont {
   margin-top: 4.8rem;
@@ -330,7 +331,7 @@
   text-align: center;
 }
 #productPage .reviewsCont .review {
-  border: 1px solid #df9c65;
+  border: 1px solid var(--primary-color);
   padding: 1.2rem;
   border-radius: 12px;
   display: flex;

@@ -1,4 +1,3 @@
-// Header.tsx
 import { FC } from 'react';
 import Link from 'next/link';
 import './Header.css';
@@ -17,6 +16,7 @@ interface HeaderProps {
       aboutLink: string;
       logout: string;
       products: string;
+      profile: string;
     };
   };
 }
@@ -39,6 +39,9 @@ const Header: FC<HeaderProps> = ({ lang, dictionary }) => {
         </Link>
         <Link href={`/${lang}/about`} className="nav-link">
           {dictionary.header.aboutLink}
+        </Link>
+        <Link href={`/${lang}/profile`} className="nav-link">
+          {dictionary.header.profile}
         </Link>
       </nav>
       <div className="registration-cont">
