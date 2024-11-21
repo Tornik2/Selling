@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import QuantitySelector from '../../utils/quantitySelector';
 import { getItemById } from '../../utils/supabaseUtils'; // Import the function to fetch data from Supabase
-import { getDictionary } from '../../../../../get-dictionaries';
+import { getDictionary, Locale } from '../../../../../get-dictionaries';
 
 // Function to render the stars based on rating
 const renderStars = (rating: number) => {
@@ -39,7 +39,7 @@ const formatDate = (dateString: string) => {
 };
 
 interface ProductPageProps {
-  params: { id: string; lang: string }; // Product ID from URL params
+  params: { id: string; lang: Locale }; // Product ID from URL params
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
@@ -47,10 +47,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const dictionary = await getDictionary(params.lang as 'en');
 
   // Fetch product details from Supabase
-  const product = await getItemById(
-    `products_${params.lang}` as 'products',
-    id
-  );
+  const product = await getItemById(`products_${params.lang}`, id);
 
   if (!product) {
     return <p>No product found.</p>;

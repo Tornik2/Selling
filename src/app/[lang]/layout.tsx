@@ -7,7 +7,7 @@ import Header from './components/header/Header';
 import Footer from './components/Footer/Footer';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
-import { getDictionary } from '../../../get-dictionaries';
+import { getDictionary, Locale } from '../../../get-dictionaries';
 
 config.autoAddCss = false; // Prevents duplicate styles
 
@@ -23,7 +23,7 @@ export const metadata = {
 interface RootLayoutProps {
   children: ReactNode;
   params: {
-    lang: string;
+    lang: Locale;
   };
 }
 

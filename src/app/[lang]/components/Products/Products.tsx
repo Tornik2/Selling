@@ -5,10 +5,13 @@ import { Locale } from '../../../../../get-dictionaries';
 import Image from 'next/image';
 import './Products.css';
 
+interface ProductsProps {
+  lang: Locale;
+}
 export const revalidate = 60;
 
-export async function generateStaticParams() {
-  const productIds = await getItemIds('products');
+export async function generateStaticParams({ lang }: ProductsProps) {
+  const productIds = await getItemIds(`products_${lang}`);
   if (!productIds) {
     return [];
   }
@@ -18,15 +21,9 @@ export async function generateStaticParams() {
   }));
 }
 
-interface ProductsProps {
-  lang: string;
-}
-
 export default async function Products({ lang }: ProductsProps) {
   const dictionary = await getDictionary(lang as 'en');
-  const products = await getAllItems(
-    `products_${lang}` as 'Services' | 'posts' | 'products'
-  );
+  const products = await getAllItems(`products_${lang}`);
 
   if (!products) {
     return <p>{dictionary.products.noProducts}.</p>;
