@@ -8,6 +8,7 @@ interface ServiceItemProps {
   img: string;
   category: string;
   subCategory: string;
+  hyperlink: string;
   title: string;
   desc: string;
   avatar: string;
@@ -22,6 +23,7 @@ export default function ServiceItem({
   img,
   category,
   subCategory,
+  hyperlink,
   title,
   desc,
   avatar,

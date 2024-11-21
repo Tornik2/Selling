@@ -40,7 +40,7 @@
     justify-content: center;
   }
 }
- 
+
 #productPage .grouping {
   display: flex;
   align-items: center;
@@ -175,7 +175,7 @@
   gap: 1.2rem;
   font-size: 1.8rem;
   background-color: var(--secondary-accent);
-  color: var(--text-color);
+  color: #fff;
   align-items: center;
   border-radius: 8px;
   padding: 1.2rem;
@@ -185,7 +185,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  color: var(--text-color);
+  color: #fff;
   align-items: center;
   background-color: var(--secondary-accent);
   border-radius: 8px;
@@ -193,7 +193,7 @@
   margin-bottom: 4.8rem;
 }
 #productPage .stocks span {
-  color: var(--primary-color);
+  color: #fff;
 }
 #productPage .stocks .stock {
   font-size: 2rem;
@@ -201,12 +201,12 @@
 #productPage .stocks .minOrder {
   font-size: 1.6rem;
 }
- 
+
 #productPage .quantitySelector {
   position: relative;
   width: 70%;
 }
- 
+
 #productPage .quantityButton {
   width: 100%;
   padding: 8px;
@@ -221,7 +221,7 @@
   align-items: center;
   font-size: 1.6rem;
 }
- 
+
 #productPage .dropdownMenu {
   position: absolute;
   top: 100%;
@@ -234,7 +234,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
- 
+
 #productPage .dropdownOption {
   width: 100%;
   padding: 8px;
@@ -244,7 +244,7 @@
   cursor: pointer;
   text-align: left;
 }
- 
+
 #productPage .dropdownOption:hover {
   background-color: var(--secondary-accent);
   color: #fff;

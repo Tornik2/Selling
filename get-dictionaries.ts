@@ -41,6 +41,20 @@ interface Dictionary {
     span: string;
     nospan: string;
   };
+  products: {
+    products: string;
+    noProducts: string;
+  };
+  productsID: {
+    stock: string;
+    order: string;
+    cart: string;
+    buy: string;
+    dimensions: string;
+    width: string;
+    height: string;
+    depth: string;
+  };
   language: {
     lang: string;
   };

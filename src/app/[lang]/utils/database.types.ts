@@ -16,6 +16,7 @@ export interface Database {
           avatar: string | null;
           category: string | null;
           subCategory: string | null;
+          hyperlink: string;
           title: string | null;
           desc: string | null;
           tier: string | null;
@@ -29,6 +30,7 @@ export interface Database {
           avatar?: string | null;
           category?: string | null;
           subCategory?: string | null;
+          hyperlink: string;
           title?: string | null;
           desc?: string | null;
           tier?: string | null;
@@ -42,6 +44,7 @@ export interface Database {
           avatar?: string | null;
           category?: string | null;
           subCategory?: string | null;
+          hyperlink: string;
           title?: string | null;
           desc?: string | null;
           tier?: string | null;
