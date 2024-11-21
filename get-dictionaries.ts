@@ -1,6 +1,3 @@
-import 'server-only';
-
-// Define the type for the dictionary structure
 interface Dictionary {
   home: {
     title: string;
@@ -23,6 +20,8 @@ interface Dictionary {
     services: string;
     home: string;
     logout: string;
+    products: string;
+    profile: string;
   };
   sorter: {
     options: string;
@@ -45,10 +44,15 @@ interface Dictionary {
   language: {
     lang: string;
   };
+  profile: {
+    title: string;
+    name: string;
+    mail: string;
+  };
 }
 
 // Enumerate supported locales
-type Locale = 'en' | 'ka';
+export type Locale = 'en' | 'ka';
 
 // Define the dictionaries object
 const dictionaries: Record<Locale, () => Promise<Dictionary>> = {

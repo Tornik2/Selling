@@ -19,6 +19,7 @@
     "tasks": "Tasks",
     "products": "Products",
     "services": "Services",
+    "profile": "Profile",
     "home": "Home",
     "logout": "Log out"
   },
@@ -42,5 +43,10 @@
   },
   "language": {
     "lang": "ქარ"
+  },
+  "profile": {
+    "title": "'s Profile",
+    "name": "Full name:",
+    "mail": "Mail:"
   }
 }
