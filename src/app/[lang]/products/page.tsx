@@ -1,8 +1,9 @@
+import { Locale } from '../../../../get-dictionaries';
 import Products from '../components/Products/Products';
 
 interface ProductsPageProps {
   params: {
-    lang: string;
+    lang: Locale;
   };
 }
 
