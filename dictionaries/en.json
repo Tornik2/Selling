@@ -62,5 +62,48 @@
     "title": "'s Profile",
     "name": "Full name:",
     "mail": "Mail:"
+  },
+  "sub": {
+    "title": "Pricing",
+    "subtitle": "Upgrade Your Subscription tier to gain benefits",
+    "frequencies": {
+      "monthly": "Monthly",
+      "annually": "Annually"
+    },
+    "tiers": {
+      "junior": {
+        "name": "Junior",
+        "description": "Great for users who are interested in posting Services or Tasks",
+        "features": [
+          "Ability to post Services",
+          "Ability to post Tasks",
+          "Can complete 1 Task",
+          "15% Task fee"
+        ],
+        "cta": "Free to use"
+      },
+      "middle": {
+        "name": "Middle",
+        "description": "Great for users who are interested in completing few Tasks a month",
+        "features": [
+          "All in the free plan plus",
+          "Task listing priority",
+          "Can complete up to 3 tasks",
+          "10% Task fee"
+        ],
+        "cta": "Get started"
+      },
+      "senior": {
+        "name": "Senior",
+        "description": "Great for users who are interested in completing many Tasks a month",
+        "features": [
+          "All in the middle plan plus",
+          "Service listing priority",
+          "Unlimited Tasks to complete",
+          "8% Task fee"
+        ],
+        "cta": "Get started"
+      }
+    }
   }
 }

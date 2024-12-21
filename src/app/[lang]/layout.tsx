@@ -37,12 +37,13 @@ export default async function RootLayout({
       <body>
         <UserProvider>
           <ThemeProvider
-            attribute="data-theme"
+            attribute="class"
             enableSystem={true}
             defaultTheme="system"
           >
             <Header lang={params.lang} dictionary={dictionary} />
             {children}
+
             <Footer lang={params.lang} dictionary={dictionary} />
           </ThemeProvider>
         </UserProvider>

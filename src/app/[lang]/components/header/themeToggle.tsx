@@ -22,9 +22,9 @@ const ThemeToggle: React.FC = () => {
       className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800 toggle"
     >
       {theme === 'dark' ? (
-        <Sun className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+        <Sun className=" text-gray-600 dark:text-white" />
       ) : (
-        <Moon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+        <Moon className=" text-gray-600 dark:text-white" />
       )}
     </button>
   );

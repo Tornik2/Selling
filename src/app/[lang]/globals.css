@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-[data-theme='light'] {
+.light {
   --background-color: #f5f3f7;
   --primary-color: #8b5fbf;
   --accent: #c7aed8;
@@ -12,7 +12,8 @@
   --hover-color: #e5e4e4;
   --active-color: #fff;
 }
-[data-theme='dark'] {
+
+.dark {
   --background-color: #14011f;
   --primary-color: #c491ff;
   --accent: #8b5fbf;
@@ -73,11 +74,6 @@ body {
   flex: 1;
   height: 100vh;
 }
-/* main,
-header,
-footer {
-  transition: 1.3s ease-in-out;
-} */
 
 * {
   box-sizing: border-box;

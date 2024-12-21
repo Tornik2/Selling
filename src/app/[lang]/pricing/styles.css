@@ -1,0 +1,163 @@
+.sub-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 4.8rem;
+  padding-bottom: 8.4rem;
+  background-color: var(--backround-color);
+  color: var(--text-color);
+  justify-content: space-evenly;
+}
+.sub-main .titles {
+  text-align: center;
+  display: flex;
+  gap: 1.6rem;
+  flex-direction: column;
+  margin-bottom: 2.4rem;
+}
+.sub-main .titles h1 {
+  font-size: 3.2rem;
+  color: var(--primary-color);
+}
+.sub-main .titles p {
+  font-size: 1.8rem;
+  color: var(--text-color);
+}
+.sub-main .toggle {
+  background-color: white;
+  border-radius: 100rem;
+  font-size: 1.4rem;
+}
+.sub-main .toggle .radiogroup {
+  display: flex;
+  gap: 4px;
+}
+.sub-main .sub-cont {
+  display: flex;
+  gap: 1.6rem;
+}
+.sub-main .sub-cont .sub-type {
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 3.6rem 2.4rem;
+  border: 2px solid #e0e3e9;
+  border-radius: 32px;
+  gap: 2.4rem;
+}
+.sub-main .sub-cont h3 {
+  font-size: 2.4rem;
+  color: black;
+  font-weight: 500;
+}
+.sub-main .sub-cont .desc {
+  font-size: 1.6rem;
+  color: #636c78;
+  height: fill;
+}
+.sub-main .sub-cont .price {
+  font-size: 3.6rem;
+  color: black;
+  margin-right: 8px;
+  font-weight: 500;
+}
+.sub-main .sub-cont .suffix {
+  font-size: 1.4rem;
+  color: #636c78;
+  font-weight: 600;
+}
+.sub-main .sub-cont .btn {
+  width: 100%;
+  padding: 0.8rem 1.6rem;
+  background-color: #f3f4f6;
+  color: black;
+  border-radius: 8px;
+  border: 1px solid #e0e3e9;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+.sub-main .sub-cont ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.sub-main .sub-cont li {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  font-size: 1.6rem;
+  color: #636c78;
+}
+
+.checkIcon {
+  width: 22px;
+  height: 22px;
+}
+.sub-main .sub-cont .btn:hover {
+  background-color: #e0e3e9;
+  border-color: #f3f4f6;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.sub-main .sub-cont .featured {
+  background-color: #7e22ce;
+}
+
+.sub-main .sub-cont .featured h3 {
+  color: #fff;
+}
+.sub-main .sub-cont .featured .desc {
+  color: #e3e3e3;
+}
+.sub-main .sub-cont .featured .price {
+  color: #fff;
+}
+.sub-main .sub-cont .featured .suffix {
+  color: #e3e3e3;
+}
+.sub-main .sub-cont .featured .btn {
+  background-color: #fff;
+}
+
+.sub-main .sub-cont .featured li {
+  color: #e3e3e3;
+}
+.sub-main .sub-cont .featured .btn:hover {
+  background-color: #7e22ce;
+  color: #fff;
+  border-color: #fff;
+  cursor: pointer;
+  transition: 0.4s;
+}
+@media only screen and (max-width: 1200px) {
+  .sub-main .sub-cont {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sub-main .sub-cont .sub-type {
+    max-width: 450px;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .sub-main .sub-cont .sub-type {
+    max-width: 100%;
+  }
+  .sub-main .sub-cont ul {
+    justify-content: center;
+  }
+  .sub-main .sub-cont li {
+    font-size: 1.4rem;
+  }
+  .sub-main .sub-cont .desc {
+    font-size: 1.4rem;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .sub-main {
+    padding-inline: 2.4rem;
+  }
+}

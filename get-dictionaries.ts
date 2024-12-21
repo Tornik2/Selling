@@ -63,6 +63,34 @@ interface Dictionary {
     name: string;
     mail: string;
   };
+  sub: {
+    title: string;
+    subtitle: string;
+    frequencies: {
+      monthly: string;
+      annually: string;
+    };
+    tiers: {
+      junior: {
+        name: string;
+        description: string;
+        features: string[];
+        cta: string;
+      };
+      middle: {
+        name: string;
+        description: string;
+        features: string[];
+        cta: string;
+      };
+      senior: {
+        name: string;
+        description: string;
+        features: string[];
+        cta: string;
+      };
+    };
+  };
 }
 
 // Enumerate supported locales
