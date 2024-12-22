@@ -1,9 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { getDictionary, Locale } from '../../../get-dictionaries';
+import { getStripe } from '../../../lib/stripe-client';
 import './styles.css';
 
-// Move the interface definitions and helper functions outside the component
+// Original interfaces
 export interface SubTierFrequency {
   id: string;
   value: string;
@@ -23,6 +24,26 @@ export interface SubTier {
   cta: string;
   soldOut?: boolean;
 }
+
+// New interface for Stripe price IDs
+interface PriceIds {
+  [key: string]: {
+    monthly: string;
+    annual: string;
+  };
+}
+
+// Define your Stripe price IDs
+const PRICE_IDS: PriceIds = {
+  middle: {
+    monthly: 'price_1QYlwxKYelKYEeeeHGgP2by3', // Replace with your Stripe price ID for monthly plan
+    annual: 'price_1QYlz1KYelKYEeeeHmGfAvdL', // Replace with your Stripe price ID for annual plan
+  },
+  senior: {
+    monthly: 'price_1QYm0EKYelKYEeeebEwxK4yQ', // Replace with your Stripe price ID for monthly plan
+    annual: 'price_1QYm0VKYelKYEeeeJdB6mQGY', // Replace with your Stripe price ID for annual plan
+  },
+};
 
 const getFrequencies = (dictionary: any): SubTierFrequency[] => [
   {
@@ -98,12 +119,70 @@ const CheckIcon = ({ className }: { className?: string }) => {
 const cn = (...args: Array<string | boolean | undefined | null>) =>
   args.filter(Boolean).join(' ');
 
-// Create a client component to handle the frequency state
 function SubscriptionContent({ dictionary }: { dictionary: any }) {
   const [frequency, setFrequency] = useState<SubTierFrequency>(
     getFrequencies(dictionary)[0]
   );
+  const [loading, setLoading] = useState<string | null>(null);
   const tiers = getTiers(dictionary);
+
+  const handleSubscription = async (tier: SubTier) => {
+    try {
+      setLoading(tier.id);
+
+      // Skip for free tier
+      if (tier.id === '0') {
+        // Handle free tier signup
+        return;
+      }
+
+      console.log('Starting subscription for tier:', tier.name); // Add logging
+
+      const priceId =
+        PRICE_IDS[tier.name.toLowerCase()][
+          frequency.value === '1' ? 'monthly' : 'annual'
+        ];
+
+      console.log('Using price ID:', priceId); // Add logging
+
+      const response = await fetch('api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          priceId,
+          frequency: frequency.value,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${JSON.stringify(
+            errorData
+          )}`
+        );
+      }
+
+      const { sessionId } = await response.json();
+      const stripe = await getStripe();
+
+      if (!stripe) {
+        throw new Error('Failed to load Stripe');
+      }
+
+      const { error } = await stripe.redirectToCheckout({ sessionId });
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error('Detailed subscription error:', error);
+      // You might want to show an error message to the user here
+    } finally {
+      setLoading(null);
+    }
+  };
 
   return (
     <main className="sub-main">
@@ -150,10 +229,7 @@ function SubscriptionContent({ dictionary }: { dictionary: any }) {
         {tiers.map((tier) => (
           <div
             key={tier.id}
-            className={cn(
-              'sub-type',
-              tier.featured ? 'featured' : '' // Apply 'featured' class if the tier is featured
-            )}
+            className={cn('sub-type', tier.featured ? 'featured' : '')}
           >
             <h3>{tier.name}</h3>
             <p className="desc">{tier.description}</p>
@@ -167,11 +243,17 @@ function SubscriptionContent({ dictionary }: { dictionary: any }) {
                 <span className="suffix">{frequency.priceSuffix}</span>
               )}
             </p>
-            <a href={tier.href} className="btn">
-              <button disabled={tier.soldOut}>
-                {tier.soldOut ? 'Sold out' : tier.cta}
-              </button>
-            </a>
+            <button
+              onClick={() => handleSubscription(tier)}
+              disabled={tier.soldOut || loading === tier.id}
+              className="btn"
+            >
+              {loading === tier.id
+                ? 'Loading...'
+                : tier.soldOut
+                ? 'Sold out'
+                : tier.cta}
+            </button>
 
             <ul>
               {tier.features.map((feature) => (
@@ -188,7 +270,6 @@ function SubscriptionContent({ dictionary }: { dictionary: any }) {
   );
 }
 
-// Main component that fetches the dictionary and renders the client component
 export default function SubPage({ params }: { params: { lang: Locale } }) {
   const [dictionary, setDictionary] = useState<any>(null);
 
