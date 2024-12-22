@@ -1,4 +1,4 @@
-import { getDictionary, Locale } from '../../../../get-dictionaries';
+import { getDictionary, Locale } from '../../../get-dictionaries';
 import About from '../components/About/About';
 
 interface AboutContent {

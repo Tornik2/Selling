@@ -1,4 +1,4 @@
-import { Locale } from '../../../../get-dictionaries';
+import { Locale } from '../../../get-dictionaries';
 import Products from '../components/Products/Products';
 
 interface ProductsPageProps {

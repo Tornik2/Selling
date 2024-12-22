@@ -1,13 +1,13 @@
 import { ReactNode } from 'react';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { ThemeProvider } from 'next-themes';
-import { i18n } from '../../../i18n.config';
+import { i18n } from '../../i18n.config';
 import './globals.css';
 import Header from './components/header/Header';
 import Footer from './components/Footer/Footer';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
-import { getDictionary, Locale } from '../../../get-dictionaries';
+import { getDictionary, Locale } from '../../get-dictionaries';
 
 config.autoAddCss = false; // Prevents duplicate styles
 

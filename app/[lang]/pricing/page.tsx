@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { getDictionary, Locale } from '../../../../get-dictionaries';
+import { getDictionary, Locale } from '../../../get-dictionaries';
 import './styles.css';
 
 // Move the interface definitions and helper functions outside the component

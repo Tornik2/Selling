@@ -1,6 +1,6 @@
 import ServiceItem from './ServiceItem/ServiceItem';
 import { getAllItems } from '../../utils/supabaseUtils';
-import { Locale } from '../../../../../get-dictionaries';
+import { Locale } from '../../../../get-dictionaries';
 
 type Service = {
   id: number;

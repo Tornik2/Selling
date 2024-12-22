@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getAllItems, getItemIds } from '../../utils/supabaseUtils';
-import { getDictionary } from '../../../../../get-dictionaries';
-import { Locale } from '../../../../../get-dictionaries';
+import { getDictionary } from '../../../../get-dictionaries';
+import { Locale } from '../../../../get-dictionaries';
 import Image from 'next/image';
 import './Products.css';
 

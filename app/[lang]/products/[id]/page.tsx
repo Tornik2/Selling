@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import QuantitySelector from '../../utils/quantitySelector';
 import { getItemById } from '../../utils/supabaseUtils'; // Import the function to fetch data from Supabase
-import { getDictionary, Locale } from '../../../../../get-dictionaries';
+import { getDictionary, Locale } from '../../../../get-dictionaries';
 
 // Function to render the stars based on rating
 const renderStars = (rating: number) => {
