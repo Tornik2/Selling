@@ -20,6 +20,7 @@
     "services": "სერვისები",
     "products": "პროდუქტები",
     "profile": "პროფილი",
+    "pricing": "ფასები",
     "home": "მთავარი",
     "logout": "გასვლა"
   },
@@ -69,6 +70,10 @@
     "frequencies": {
       "monthly": "თვიური",
       "annually": "წლიური"
+    },
+    "priceSuffix": {
+      "monthly": "/თვეში",
+      "annually": "/წელიწადში"
     },
     "tiers": {
       "junior": {

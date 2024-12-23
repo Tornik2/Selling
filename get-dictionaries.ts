@@ -19,6 +19,7 @@ interface Dictionary {
     tasks: string;
     services: string;
     home: string;
+    pricing: string;
     logout: string;
     products: string;
     profile: string;
@@ -67,6 +68,10 @@ interface Dictionary {
     title: string;
     subtitle: string;
     frequencies: {
+      monthly: string;
+      annually: string;
+    };
+    priceSuffix: {
       monthly: string;
       annually: string;
     };

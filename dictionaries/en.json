@@ -20,6 +20,7 @@
     "products": "Products",
     "services": "Services",
     "profile": "Profile",
+    "pricing": "Pricing",
     "home": "Home",
     "logout": "Log out"
   },
@@ -69,6 +70,10 @@
     "frequencies": {
       "monthly": "Monthly",
       "annually": "Annually"
+    },
+    "priceSuffix": {
+      "monthly": "/month",
+      "annually": "/year"
     },
     "tiers": {
       "junior": {

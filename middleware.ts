@@ -17,16 +17,20 @@ function getLocale(request: NextRequest): string | undefined {
   return locale;
 }
 
-// Define the actual middleware function
 async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  // Skip locale redirect for API routes
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next();
+  }
 
   // Check if the pathname includes a locale
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
-  // Redirect if there’s no locale in the URL path
+  // Redirect if there's no locale in the URL path
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
 
@@ -41,6 +45,8 @@ async function middleware(request: NextRequest) {
 
     return NextResponse.redirect(newUrl);
   }
+
+  return NextResponse.next();
 }
 
 // Use `withMiddlewareAuthRequired` to wrap the middleware for authentication
@@ -48,11 +54,7 @@ export default withMiddlewareAuthRequired(middleware);
 
 export const config = {
   matcher: [
-    // Exclude the following routes from middleware processing:
-    // 1. Static files (e.g., images, fonts, and other assets in /public)
-    '/((?!api/auth|_next/static|_next/image|favicon.ico|images).*)', // <-- Excluding /images here
-
-    // Routes that require both authentication and locale handling
-    // (Will now apply to all paths except those above)
+    // Match all pathnames except static files and auth routes
+    '/((?!_next/static|_next/image|favicon.ico|images).*)',
   ],
 };

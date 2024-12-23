@@ -26,7 +26,7 @@
   color: var(--text-color);
 }
 .sub-main .toggle {
-  background-color: white;
+  background-color: var(--backround-color);
   border-radius: 100rem;
   font-size: 1.4rem;
 }

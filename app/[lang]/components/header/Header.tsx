@@ -15,6 +15,7 @@ interface HeaderProps {
       tasks: string;
       aboutLink: string;
       logout: string;
+      pricing: string;
       products: string;
       profile: string;
     };
@@ -44,7 +45,7 @@ const Header: FC<HeaderProps> = ({ lang, dictionary }) => {
           {dictionary.header.profile}
         </Link>
         <Link href={`/${lang}/pricing`} className="nav-link">
-          pricing
+          {dictionary.header.pricing}
         </Link>
       </nav>
       <div className="registration-cont">
