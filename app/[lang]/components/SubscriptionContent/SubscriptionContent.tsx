@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { getStripe } from '../../../../lib/stripe-client';
-
+import { Locale } from '../../../../get-dictionaries';
 export enum TierType {
   JUNIOR = 'junior',
   MIDDLE = 'middle',
@@ -31,8 +31,14 @@ export interface SubTier {
 
 interface PriceIds {
   [key: string]: {
-    monthly: string;
-    annual: string;
+    monthly: {
+      en: string;
+      ka: string;
+    };
+    annual: {
+      en: string;
+      ka: string;
+    };
   };
 }
 
@@ -73,12 +79,24 @@ interface Dictionary {
 
 const PRICE_IDS: PriceIds = {
   [TierType.MIDDLE]: {
-    monthly: 'price_1QYlwxKYelKYEeeeHGgP2by3',
-    annual: 'price_1QYlz1KYelKYEeeeHmGfAvdL',
+    monthly: {
+      en: 'price_1QYlwxKYelKYEeeeHGgP2by3',
+      ka: 'price_1QZCsRKYelKYEeeecnYQVo3b',
+    },
+    annual: {
+      en: 'price_1QYlz1KYelKYEeeeHmGfAvdL',
+      ka: 'price_1QZCsjKYelKYEeeezqesTfM5',
+    },
   },
   [TierType.SENIOR]: {
-    monthly: 'price_1QYm0EKYelKYEeeebEwxK4yQ',
-    annual: 'price_1QYm0VKYelKYEeeeJdB6mQGY',
+    monthly: {
+      en: 'price_1QYm0EKYelKYEeeebEwxK4yQ',
+      ka: 'price_1QZCtMKYelKYEeee1dc6io1k',
+    },
+    annual: {
+      en: 'price_1QYm0VKYelKYEeeeJdB6mQGY',
+      ka: 'price_1QZCtbKYelKYEeee94dmvxrP',
+    },
   },
 };
 
@@ -159,8 +177,10 @@ const cn = (...args: (string | boolean | undefined | null)[]) =>
 
 export default function SubscriptionContent({
   dictionary,
+  language,
 }: {
   dictionary: Dictionary;
+  language: Locale;
 }) {
   const [frequency, setFrequency] = useState<SubTierFrequency>(
     getFrequencies(dictionary)[0]
@@ -178,9 +198,9 @@ export default function SubscriptionContent({
       }
 
       const priceId =
-        PRICE_IDS[tier.tierType][
+        PRICE_IDS[tier.tierType as keyof PriceIds][
           frequency.value === '1' ? 'monthly' : 'annual'
-        ];
+        ][language];
 
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',

@@ -7,7 +7,12 @@ export default async function SubPage({
 }: {
   params: { lang: Locale };
 }) {
-  const dictionary = await getDictionary(params.lang as 'en');
+  const dictionary = await getDictionary(params.lang as Locale);
 
-  return <SubscriptionContent dictionary={dictionary} />;
+  return (
+    <SubscriptionContent
+      dictionary={dictionary}
+      language={params.lang as Locale}
+    />
+  );
 }
