@@ -96,6 +96,9 @@ interface Dictionary {
       };
     };
   };
+  payment: {
+    success: string;
+  };
 }
 
 // Enumerate supported locales

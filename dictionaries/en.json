@@ -110,5 +110,8 @@
         "cta": "Get started"
       }
     }
+  },
+  "payment": {
+    "success": "Payment Successful!"
   }
 }
