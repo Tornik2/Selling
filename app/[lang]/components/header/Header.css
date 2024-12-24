@@ -19,15 +19,18 @@ header .registration-cont {
   gap: 1.6rem;
   font-size: 1.8rem;
 }
-header a {
+header a,
+header .btn {
   text-decoration: none;
   color: var(--text-color);
 }
-header a:hover {
+header a:hover,
+header .btn:hover {
   color: var(--hover-color);
   transition: 0.4s;
 }
-header a:active {
+header a:active,
+header .btn:active {
   color: var(--active-color);
 }
 header .hamburger {
