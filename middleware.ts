@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { withMiddlewareAuthRequired } from '@auth0/nextjs-auth0/edge';
+import { updateSession } from './utils/supabase/middleware';
 import { i18n } from './i18n.config';
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
+import { createClient } from './utils/supabase/server';
+
+// Public routes that don't require authentication
+const publicRoutes = [
+  '/sign-in',
+  '/sign-up',
+  '/forgot-password',
+  '/auth/callback',
+];
 
 function getLocale(request: NextRequest): string | undefined {
   const negotiatorHeaders: Record<string, string> = {};
@@ -13,48 +22,93 @@ function getLocale(request: NextRequest): string | undefined {
   let languages = new Negotiator({ headers: negotiatorHeaders }).languages(
     locales
   );
-  const locale = matchLocale(languages, locales, i18n.defaultLocale);
-  return locale;
+  return matchLocale(languages, locales, i18n.defaultLocale);
 }
 
-async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+export async function middleware(request: NextRequest) {
+  try {
+    // Create response with session handling
+    const response = await updateSession(request);
 
-  // Skip locale redirect for API routes
-  if (pathname.startsWith('/api/')) {
-    return NextResponse.next();
-  }
+    const pathname = request.nextUrl.pathname;
 
-  // Check if the pathname includes a locale
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  );
+    // Skip locale redirect for API routes
+    if (pathname.startsWith('/api/')) {
+      return response;
+    }
 
-  // Redirect if there's no locale in the URL path
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-
-    // Build the new URL with the locale and include the search parameters
-    const newUrl = new URL(
-      `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-      request.url
+    // Get the current locale from the pathname
+    const currentLocale = i18n.locales.find(
+      (locale) =>
+        pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
     );
 
-    // Add original query parameters to the new URL
-    newUrl.search = request.nextUrl.search;
+    // Get the pathname without the locale prefix
+    const pathnameWithoutLocale = currentLocale
+      ? pathname.replace(`/${currentLocale}`, '')
+      : pathname;
 
-    return NextResponse.redirect(newUrl);
+    // Check if the route is public
+    const isPublicRoute = publicRoutes.some((route) =>
+      pathnameWithoutLocale.startsWith(route)
+    );
+
+    // Create Supabase client and check session
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    // Redirect unauthenticated users to sign-in page
+    if (!user && !isPublicRoute) {
+      const locale = currentLocale || getLocale(request);
+      return NextResponse.redirect(new URL(`/${locale}/sign-in`, request.url));
+    }
+
+    // Redirect authenticated users away from auth pages
+    if (user && isPublicRoute && pathnameWithoutLocale !== '/auth/callback') {
+      const locale = currentLocale || getLocale(request);
+      return NextResponse.redirect(
+        new URL(`/${locale}/protected`, request.url)
+      );
+    }
+
+    // Handle locale redirect
+    const pathnameIsMissingLocale = i18n.locales.every(
+      (locale) =>
+        !pathname.startsWith(`/${locale}`) && pathname !== `/${locale}`
+    );
+
+    if (pathnameIsMissingLocale) {
+      const locale = getLocale(request);
+      const newUrl = new URL(
+        `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
+        request.url
+      );
+      newUrl.search = request.nextUrl.search;
+      return NextResponse.redirect(newUrl);
+    }
+
+    return response;
+  } catch (error) {
+    console.error('Middleware error:', error);
+    // In case of error, redirect to sign-in page
+    const locale = getLocale(request);
+    return NextResponse.redirect(new URL(`/${locale}/sign-in`, request.url));
   }
-
-  return NextResponse.next();
 }
-
-// Use `withMiddlewareAuthRequired` to wrap the middleware for authentication
-export default withMiddlewareAuthRequired(middleware);
 
 export const config = {
   matcher: [
-    // Match all pathnames except static files and auth routes
-    '/((?!_next/static|_next/image|favicon.ico|images).*)',
+    /*
+     * Match all request paths except:
+     * 1. /_next/ (Next.js internals)
+     * 2. /api/ (API routes)
+     * 3. /static (public static files)
+     * 4. .*\\..*$ (files with extensions, e.g. favicon.ico)
+     */
+    '/((?!_next|api|static|.*\\..*$).*)',
+    // Include paths that might have files but shouldn't be excluded
+    '/services/:path*',
   ],
 };

@@ -5,6 +5,7 @@ import Logo from '../../utils/logo';
 import Hamburger from '../../utils/hamburger';
 import ThemeToggle from './themeToggle';
 import LocaleSwitcher from './languageSwitcher';
+import { signOutAction } from '../../actions';
 
 interface HeaderProps {
   lang: string;
@@ -50,9 +51,9 @@ const Header: FC<HeaderProps> = ({ lang, dictionary }) => {
       </nav>
       <div className="registration-cont">
         <LocaleSwitcher lang={lang} />
-        <a href="/api/auth/logout" className="logout">
-          {dictionary.header.logout}
-        </a>
+        <form action={signOutAction}>
+          <button type="submit">{dictionary.header.logout}</button>
+        </form>
         <ThemeToggle />
       </div>
       <Hamburger />
