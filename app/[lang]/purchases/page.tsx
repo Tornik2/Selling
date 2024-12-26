@@ -1,6 +1,8 @@
 import './purchases.css';
 import Link from 'next/link';
 import { getAllItems, getItemIds } from '../utils/supabaseUtils';
+import { createClient } from '../../../utils/supabase/server';
+
 import { getDictionary } from '../../../get-dictionaries';
 import { Locale } from '../../../get-dictionaries';
 import Image from 'next/image';
@@ -14,6 +16,13 @@ export default async function PurchasedProducts({
 }: ProductsProps) {
   const dictionary = await getDictionary(lang as 'en');
   let products = await getAllItems(`products_${lang}`);
+
+  // get current user
+  //   const supabase = await createClient();
+  //   const {
+  //     data: { user },
+  //   } = await supabase.auth.getUser();
+  //   console.log('user:', user);
 
   if (!products) {
     return (
@@ -32,7 +41,10 @@ export default async function PurchasedProducts({
       </main>
     );
   }
+
+  // Dummy data to show just 3 products before actual purchased products table is ready
   products = products.slice(0, 3);
+
   return (
     <main className="purchases-main">
       <h1 className="purchases-title">
