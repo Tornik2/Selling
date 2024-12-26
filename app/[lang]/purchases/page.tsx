@@ -16,7 +16,21 @@ export default async function PurchasedProducts({
   let products = await getAllItems(`products_${lang}`);
 
   if (!products) {
-    return <p>{dictionary.products.noProducts}.</p>;
+    return (
+      <main className="purchases-main">
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '4.4rem',
+            fontSize: '4.2rem',
+          }}
+        >
+          {dictionary.products.noProducts}.
+        </div>
+      </main>
+    );
   }
   products = products.slice(0, 3);
   return (
