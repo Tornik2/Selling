@@ -1,4 +1,4 @@
-import createProduct from './createProductAction';
+import createProduct from './CreateProductAction';
 import { Locale, getDictionary } from '../../../../get-dictionaries';
 interface CreateProductFormProps {
   lang: Locale;
