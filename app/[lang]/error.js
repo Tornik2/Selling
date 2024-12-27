@@ -1,21 +1,22 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 
 export default function Error({ error, reset }) {
-  const router = useRouter();
-
   useEffect(() => {
     console.error(error);
   }, [error]);
+
+  const goHome = () => {
+    window.location.href = '/';
+  };
 
   return (
     <div className="error-page">
       <h1>Something went wrong!</h1>
       <p>{error.message}</p>
       <button onClick={() => reset()}>Try again</button>
-      <button onClick={() => router.push('/')}>Go to Home</button>
+      <button onClick={goHome}>Go to Home</button>
       <style jsx>{`
         .error-page {
           display: flex;
