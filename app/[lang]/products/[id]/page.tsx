@@ -6,25 +6,24 @@ import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import QuantitySelector from '../../utils/quantitySelector';
 import { getItemById } from '../../utils/supabaseUtils'; // Import the function to fetch data from Supabase
 import { getDictionary, Locale } from '../../../../get-dictionaries';
-
-// Function to render the stars based on rating
+import BuyButton from '../../components/Products/BuyButton';
+ 
 const renderStars = (rating: number) => {
   const roundedRating = Math.round(rating * 2) / 2; // Round to nearest 0.5
   const fullStars = Math.floor(roundedRating); // Get the full star count
   const hasHalfStar = roundedRating - fullStars === 0.5; // Check if there's a half star
   const stars = [];
-
+ 
   for (let i = 0; i < fullStars; i++) {
     stars.push(<FontAwesomeIcon key={i} icon={faStar} />);
   }
-
+ 
   if (hasHalfStar) {
     stars.push(<FontAwesomeIcon key={fullStars} icon={faStarHalfAlt} />);
   }
   return stars;
 };
-
-// Function to format the date if necessary
+ 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', {
@@ -37,22 +36,22 @@ const formatDate = (dateString: string) => {
     hour12: true,
   });
 };
-
+ 
 interface ProductPageProps {
   params: { id: string; lang: Locale }; // Product ID from URL params
 }
-
+ 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = params; // Get the ID from URL parameters
   const dictionary = await getDictionary(params.lang as 'en');
-
+ 
   // Fetch product details from Supabase
   const product = await getItemById(`products_${params.lang}`, id);
-
+ 
   if (!product) {
     return <p>No product found.</p>;
   }
-
+ 
   return (
     <div id="productPage">
       <div className="heading">
@@ -106,7 +105,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
           <div className="buttons">
             <button className="addCartBtn">{dictionary.productsID.cart}</button>
-            <button className="buyBtn">{dictionary.productsID.buy}</button>
+            <BuyButton product={product} dictionary={dictionary} />
           </div>
         </div>
         <div className="textSection">
