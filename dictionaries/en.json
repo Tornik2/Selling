@@ -2,7 +2,8 @@
   "home": {
     "title": "ServIt",
     "desc": "Service Marketplace",
-    "omw": "Coming Soon"
+    "omw": "Coming Soon",
+    "btn": "Create Product"
   },
   "about": {
     "title": "ServIt is a service marketplace",
@@ -12,6 +13,7 @@
     "aboutLink": "About Us",
     "contactLink": "Contact",
     "policies": "Policies",
+    "profile": "Profile",
     "rights": "© 2024 ServIt. All rights reserved."
   },
   "header": {
@@ -22,7 +24,9 @@
     "profile": "Profile",
     "pricing": "Pricing",
     "home": "Home",
-    "logout": "Log out"
+    "logout": "Log out",
+    "orders": "Orders",
+    "createProduct": "Add Product"
   },
   "sorter": {
     "options": "Sort Options",
@@ -113,5 +117,23 @@
   },
   "payment": {
     "success": "Payment Successful!"
+  },
+  "addPage": {
+    "title": "Create Product",
+    "name": "Name",
+    "price": "Price",
+    "category": "Category",
+    "tags": "Tags (comma-separated)",
+    "brand": "Brand",
+    "imageURL": "Image URL",
+    "width": "Width",
+    "height": "Height",
+    "depth": "Depth",
+    "weight": "weight",
+    "description": "Description",
+    "submit": "Submit"
+  },
+  "order": {
+    "title": "Your Orders"
   }
 }
