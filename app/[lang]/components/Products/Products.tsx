@@ -22,7 +22,7 @@ export async function generateStaticParams({ lang }: ProductsProps) {
 }
 
 export default async function Products({ lang }: ProductsProps) {
-  const dictionary = await getDictionary(lang as 'en');
+  const dictionary = await getDictionary(lang as Locale);
   const products = await getAllItems(`products_${lang}`);
 
   if (!products) {
@@ -38,7 +38,7 @@ export default async function Products({ lang }: ProductsProps) {
             <Link href={`/${lang}/products/${product.id}`} passHref>
               <div className="img-container">
                 <Image
-                  src={product.thumbnail || '/images/cool-background.png'}
+                  src={product.thumbnail || '/images/cool-background.png'} // Provide fallback image
                   alt={product.title || 'Product Image'}
                   fill
                   priority
