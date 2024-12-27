@@ -15,15 +15,26 @@ export default async function PurchasedProducts({
   lang = 'en',
 }: ProductsProps) {
   const dictionary = await getDictionary(lang as 'en');
-  let products = await getAllItems(`products_${lang}`);
+  let products: any;
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  // get current user
-  //   const supabase = await createClient();
-  //   const {
-  //     data: { user },
-  //   } = await supabase.auth.getUser();
-  //   console.log('user:', user);
+  const userId = user?.id;
 
+  const { data, error } = await supabase
+    .from('purchased_products')
+    .select('*')
+    .eq('user_id', userId);
+  products = data;
+  // to test received products
+  console.log(products);
+  if (error) {
+    console.error('Error fetching products:', error);
+    products = '';
+    return null;
+  }
   if (!products) {
     return (
       <main className="purchases-main">
@@ -42,16 +53,13 @@ export default async function PurchasedProducts({
     );
   }
 
-  // Dummy data to show just 3 products before actual purchased products table is ready
-  products = products.slice(0, 3);
-
   return (
     <main className="purchases-main">
       <h1 className="purchases-title">
         Purchased {dictionary.products.products}
       </h1>
       <div className="purchases-list">
-        {products.map((product) => (
+        {products.map((product: any) => (
           <div key={product.id} className="purchase-item">
             <Link href={`/${lang}/products/${product.id}`} passHref>
               <div className="img-container">
