@@ -49,8 +49,6 @@ const Header: FC<HeaderProps> = ({ lang, dictionary }) => {
         <Link href={`/${lang}/pricing`} className="nav-link">
           {dictionary.header.pricing}
         </Link>
-        <Link href={`/${lang}/createProduct`} className="nav-link">
-          {dictionary.header.createProduct}
         </Link>
       </nav>
       <div className="registration-cont">
