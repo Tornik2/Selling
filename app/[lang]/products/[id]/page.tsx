@@ -49,7 +49,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getItemById(`products_${params.lang}`, id);
 
   if (!product) {
-    return <p>No product found.</p>;
+    return (
+      <main className="flex flex-1 justify-center items-center text-4xl">
+        No product found.
+      </main>
+    );
   }
 
   return (
